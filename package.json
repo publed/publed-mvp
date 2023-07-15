@@ -1,0 +1,19 @@
+{
+  "name": "publed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "app:start": "cd app && npm run start",
+    "app:build": "cd app && npm run build",
+    "program:build": "anchor build",
+    "program:deploydev": "cd publed-programs && anchor deploy --provider.cluster=devnet && node copy_idl.ts",
+    "program:deploylh": "cd publed-programs && anchor deploy --provider.cluster=localnet && node copy_idl.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
