@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { pages } from './pages';
 // import AppLoading from '@/components/loading/AppLoading'
 
 const fallback = {
@@ -7,18 +8,7 @@ const fallback = {
     to: '/',
 };
 
-const pages = [
-    {
-        component: lazy(() => import('../pages/index')),
-        path: '/',
-    },
-    {
-        component: lazy(() => import('../pages/about')),
-        path: '/about',
-    },
-];
-
-export default function DefaultRoute() {
+export default function Routes() {
     return (
         <Routes>
             {pages.map((page) => (

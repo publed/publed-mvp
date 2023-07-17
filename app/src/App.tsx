@@ -8,7 +8,7 @@ import { web3, AnchorProvider, Program } from '@project-serum/anchor';
 import idl from './idl.json';
 import { Solana, SolanaWalletProvider } from './context/SolanaWalletProvider';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
-import DefaultRoute from './routes/DefaultRoute';
+import DefaultRoute from './routes/routes';
 import Layout from './components/Layout';
 
 require('./App.css');
@@ -40,7 +40,7 @@ const App: FC = () => {
                         path="*"
                         element={
                             <Layout>
-                                <DefaultRoute></DefaultRoute>
+                                <Routes></Routes>
                             </Layout>
                         }
                     ></Route>
