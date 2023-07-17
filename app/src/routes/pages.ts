@@ -2,7 +2,7 @@ import { lazy } from 'react';
 
 export const pages = [
     {
-        component: lazy(() => import('../pages/index')),
+        component: lazy(() => import('../pages/home')),
         title: 'Home',
         path: '/',
     },
@@ -12,18 +12,18 @@ export const pages = [
         path: '/about',
     },
     {
-        component: lazy(() => import('../pages/about')),
+        component: lazy(() => import('../pages/signin')),
         title: 'Sign-In',
-        path: '/about',
+        path: '/signin',
     },
     {
-        component: lazy(() => import('../pages/about')),
-        title: 'Sign-In',
-        path: '/about',
+        component: lazy(() => import('../pages/signup')),
+        title: 'Sign-Up',
+        path: '/signup',
     },
     {
-        component: lazy(() => import('../pages/about')),
+        component: lazy(() => import('../pages/contact')),
         title: 'Contact Us',
-        path: '/about',
+        path: '/contact',
     },
 ];

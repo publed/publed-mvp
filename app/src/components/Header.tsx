@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { pages } from '../routes/pages';
+import { Link } from 'react-router-dom';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
@@ -87,7 +88,7 @@ function Header() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page.title} component={Link} to={page.path}>
                                     <Typography textAlign="center">{page.title}</Typography>
                                 </MenuItem>
                             ))}
@@ -117,6 +118,8 @@ function Header() {
                             <Button
                                 key={page.path}
                                 onClick={handleCloseNavMenu}
+                                component={Link}
+                                to={page.path}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page.title}

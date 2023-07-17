@@ -8,12 +8,12 @@ const fallback = {
     to: '/',
 };
 
-export default function Routes() {
+export default function PubledRoutes() {
     return (
         <Routes>
             {pages.map((page) => (
                 <Route
-                    key={page.path}
+                    key={page.title}
                     path={page.path}
                     element={
                         // <Suspense fallback={<AppLoading />}>

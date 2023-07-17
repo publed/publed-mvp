@@ -1,15 +1,12 @@
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { ConnectionProvider, WalletProvider, useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl, Keypair, PublicKey, SystemProgram } from '@solana/web3.js';
-import React, { FC, ReactNode, useMemo, useState } from 'react';
-import { web3, AnchorProvider, Program } from '@project-serum/anchor';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { Keypair, PublicKey, SystemProgram } from '@solana/web3.js';
+import React, { FC, useState } from 'react';
+import { AnchorProvider, Program } from '@project-serum/anchor';
 import idl from './idl.json';
-import { Solana, SolanaWalletProvider } from './context/SolanaWalletProvider';
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
-import DefaultRoute from './routes/routes';
+import { SolanaWalletProvider } from './context/SolanaWalletProvider';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
+import PubledRoutes from './routes/routes';
 
 require('./App.css');
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -40,12 +37,11 @@ const App: FC = () => {
                         path="*"
                         element={
                             <Layout>
-                                <Routes></Routes>
+                                <PubledRoutes></PubledRoutes>
                             </Layout>
                         }
                     ></Route>
                 </Routes>
-                <WalletMultiButton />
             </BrowserRouter>
         </SolanaWalletProvider>
     );
@@ -108,7 +104,6 @@ const Content: FC = () => {
     }
     return (
         <div className="App">
-            <WalletMultiButton />
             <button onClick={createPubled}> Create Publed </button>
             <button onClick={signUp}> Sign Up </button>
         </div>
