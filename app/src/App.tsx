@@ -7,6 +7,7 @@ import { SolanaWalletProvider } from './context/SolanaWalletProvider';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import PubledRoutes from './routes/routes';
+import PubledProvider from './context/PubledContext';
 
 require('./App.css');
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -31,18 +32,20 @@ export const getUserKey = (walletKey: PublicKey) => {
 const App: FC = () => {
     return (
         <SolanaWalletProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route
-                        path="*"
-                        element={
-                            <Layout>
-                                <PubledRoutes></PubledRoutes>
-                            </Layout>
-                        }
-                    ></Route>
-                </Routes>
-            </BrowserRouter>
+            <PubledProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route
+                            path="*"
+                            element={
+                                <Layout>
+                                    <PubledRoutes></PubledRoutes>
+                                </Layout>
+                            }
+                        ></Route>
+                    </Routes>
+                </BrowserRouter>
+            </PubledProvider>
         </SolanaWalletProvider>
     );
 };
