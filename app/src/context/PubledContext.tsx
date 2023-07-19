@@ -1,10 +1,13 @@
-import React, { FC, ReactNode, createContext, useEffect, useMemo, useState } from 'react';
+import React, { FC, ReactNode, createContext, useEffect, useId, useMemo, useState } from 'react';
 import idl from '../idl.json';
-import { Keypair, PublicKey, SystemProgram } from '@solana/web3.js';
+import { Connection, Keypair, PublicKey, SystemProgram } from '@solana/web3.js';
 import { AnchorWallet, useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { AnchorProvider, Idl, Program, Wallet } from '@project-serum/anchor';
 import { useCreateUser } from '../api/useCreateUser';
 import { useBackOffice } from '../api/useBackOffice';
+import { useUpdateUser } from '../api/useUpdateUser';
+import { useCreatePost } from '../api/useCreatePost';
+import { useUpdatePost } from '../api/useUpdatePost';
 
 const PROGRAM_KEY = new PublicKey(idl.metadata.address);
 
@@ -22,8 +25,12 @@ export type PubledContextType = {
     anchorWallet?: AnchorWallet;
     program?: Program<Idl>;
     provider?: AnchorProvider;
+    connection: Connection;
     createUser: () => void;
     backOffice: () => void;
+    updateUser: (name: String, avatar: String) => void;
+    createPost: () => void;
+    updatePost: () => void;
 };
 
 export const getUserKey = (walletKey: PublicKey) => {
@@ -53,11 +60,26 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
 
     console.log('Provider:', provider);
 
-    const createUser = useCreateUser(program, provider);
     const backOffice = useBackOffice(program);
+    const createUser = useCreateUser(program, provider);
+    const updateUser = useUpdateUser(program, provider);
+    const createPost = useCreatePost(program, provider);
+    const updatePost = useUpdatePost(program, provider);
 
     return (
-        <PubledContext.Provider value={{ anchorWallet, program, provider, createUser, backOffice }}>
+        <PubledContext.Provider
+            value={{
+                anchorWallet,
+                program,
+                provider,
+                connection,
+                createUser,
+                backOffice,
+                updateUser,
+                createPost,
+                updatePost,
+            }}
+        >
             {children}
         </PubledContext.Provider>
     );

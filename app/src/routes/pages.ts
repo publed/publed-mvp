@@ -26,4 +26,9 @@ export const pages = [
         title: 'Contact Us',
         path: '/contact',
     },
+    {
+        component: lazy(() => import('../pages/backoffice')),
+        title: 'Back Office',
+        path: '/backoffice',
+    },
 ];
