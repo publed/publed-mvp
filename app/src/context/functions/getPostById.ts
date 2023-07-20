@@ -15,6 +15,7 @@ export async function getPostById(postId: string, program: Program) {
             title: post.title,
             content: post.content,
             userId,
+            authority: post.authority.toString(),
             prePostId: post.prePostKey.toString(),
         };
     } catch (e: any) {

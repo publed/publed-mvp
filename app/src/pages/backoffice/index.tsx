@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PubledContext, PubledContextType } from '../../context/PubledContext';
-import { Divider } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import { PublicKey } from '@solana/web3.js';
 import Tables from '../../components/Tables';
 import FormComponent from '../../components/Form';
@@ -20,7 +20,7 @@ interface IPost {
 }
 
 const BackOffice = () => {
-    const { program, connection, createUser, updateUser, createPost, updatePost } = useContext(
+    const { program, connection, createUser, updateUser, createPost, updatePost, deletePost } = useContext(
         PubledContext
     ) as PubledContextType;
     const [publedAccounts, setPubledAccounts] = useState<IPubled[]>([]);
@@ -35,6 +35,8 @@ const BackOffice = () => {
 
             const users = await program?.account.userState.all();
             setUserAccounts(users);
+
+            console.log(await program?.account.postState.all());
 
             const p = await program?.account.publedState.fetch(
                 // Main Publed State
@@ -77,9 +79,10 @@ const BackOffice = () => {
         { label: 'Content', name: 'content' },
         { label: 'Address', name: 'address' },
     ];
+    const deleteFormFields = [{ label: 'Address', name: 'address' }];
 
     const handleCreateUser = async (formData: any) => {
-        console.log('Updating User:', formData);
+        console.log('Creating User:', formData);
 
         await createUser(formData.name, formData.avatar, formData.orcid);
 
@@ -98,7 +101,7 @@ const BackOffice = () => {
     };
 
     const handleCreatePost = async (formData: any) => {
-        console.log('Updating Post:', formData);
+        console.log('Creating Post:', formData);
 
         await createPost(formData.title, formData.content);
 
@@ -110,6 +113,15 @@ const BackOffice = () => {
         console.log('Updating Post:', formData);
 
         await updatePost(formData.title, formData.content, formData.address);
+
+        setTimeout(() => {
+            setUpdatedUser(!updatedUser);
+        }, 10000);
+    };
+    const handleDeletePost = async (formData: any) => {
+        console.log('Deleting Post:', formData);
+
+        await deletePost(formData.address);
 
         setTimeout(() => {
             setUpdatedUser(!updatedUser);
@@ -152,7 +164,7 @@ const BackOffice = () => {
             />
 
             <h2 style={{ color: 'white' }}>Posts</h2>
-            <Tables data={postAccounts} columns={['id', 'title', 'content', 'userId', 'prePostId']} />
+            <Tables data={postAccounts} columns={['id', 'title', 'content', 'authority', 'prePostId', 'userId']} />
 
             <h2 style={{ color: 'white' }}>Create Post</h2>
 
@@ -169,6 +181,15 @@ const BackOffice = () => {
                 submitButtonText="Update Post"
                 onSubmit={handleUpdatePost}
                 formFields={postFormFields}
+            />
+
+            <h2 style={{ color: 'white' }}>Delete Post</h2>
+
+            <FormComponent
+                formTitle="Delete Post"
+                submitButtonText="Delete Post"
+                onSubmit={handleDeletePost}
+                formFields={deleteFormFields}
             />
         </div>
     );
