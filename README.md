@@ -98,3 +98,13 @@ npm run program:deploy
 
 ### Devnet Address
 E2JpF1p5zAzVYxyEkHkD4tVNMYftueEQB782kBBZCB4Y
+
+**PubledAccount** - 8RqEmmuWsyRV9sKFZAQ1GVZjqkH3YtHq34Wo3qMQmHnE
+
+1 - Ajr1VyWndcmA9r6G6go5mDqUFaJMznvPLa2rvQEfSndW
+2 - BkNda2cxc6hQfyYr1EP3a3qq34hNaPenWwypru3hKN19
+3 - 4bGK4xwv9MYNfXkxqquXGdiSxuXFX4wSVxHshm5qZenm
+4 - HvaouxeiCmdKDEPnXuENRPNJ9ujoHtFGDPEfDXXuqBme
+5 - 6218kZ4PpgMVAaeHfEuGrzBAdH5rGMwMTXE2zCLPa3Sq
+6 - 4JUroUX4A7U27XsTh8DxPfTkyrj4sfGid5X8nccqRNiL
+7 - Ce9nZ5S5xoTdHuCBwhhb74WeXfnA9MuKrAqsjZb4YA4T

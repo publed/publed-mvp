@@ -1,18 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PubledContext, PubledContextType } from '../../context/PubledContext';
-import {
-    Box,
-    Button,
-    Divider,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    TextField,
-} from '@mui/material';
+import { Divider } from '@mui/material';
 import { PublicKey } from '@solana/web3.js';
+import Tables from '../../components/Tables';
+import FormComponent from '../../components/Form';
+import { getPostById } from '../../context/functions/getPostById';
 
 interface IPubled {
     publicKey: PublicKey;
@@ -44,20 +36,80 @@ const BackOffice = () => {
             const users = await program?.account.userState.all();
             setUserAccounts(users);
 
-            const posts = await program?.account.postState.all();
-            setPostAccounts(posts);
+            const p = await program?.account.publedState.fetch(
+                // Main Publed State
+                new PublicKey('8RqEmmuWsyRV9sKFZAQ1GVZjqkH3YtHq34Wo3qMQmHnE')
+            );
+            const latestPostId = p?.currentPostKey.toString();
+            console.log(latestPostId);
 
-            console.log(posts);
+            const ps = [];
+
+            let nextPostId = latestPostId;
+            while (!!nextPostId) {
+                const post = await getPostById(nextPostId, program);
+                if (!post) {
+                    break;
+                }
+
+                ps?.push(post);
+                nextPostId = post.prePostId;
+            }
+            console.log(ps);
+            setPostAccounts(ps);
         };
 
         fetchData();
-    }, [updatedUser]);
+    }, [updatedUser, program]);
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+    const userFormFields = [
+        { label: 'Name', name: 'name' },
+        { label: 'Avatar', name: 'avatar' },
+    ];
+    const createUserFormFields = [
+        { label: 'Name', name: 'name' },
+        { label: 'Avatar', name: 'avatar' },
+        { label: 'Orcid', name: 'orcid' },
+    ];
 
-        await updateUser(data.get('name') as string, data.get('avatar') as string);
+    const postFormFields = [
+        { label: 'Title', name: 'title' },
+        { label: 'Content', name: 'content' },
+        { label: 'Address', name: 'address' },
+    ];
+
+    const handleCreateUser = async (formData: any) => {
+        console.log('Updating User:', formData);
+
+        await createUser(formData.name, formData.avatar, formData.orcid);
+
+        setTimeout(() => {
+            setUpdatedUser(!updatedUser);
+        }, 10000);
+    };
+    const handleUpdateUser = async (formData: any) => {
+        console.log('Updating User:', formData);
+
+        await updateUser(formData.name, formData.avatar);
+
+        setTimeout(() => {
+            setUpdatedUser(!updatedUser);
+        }, 10000);
+    };
+
+    const handleCreatePost = async (formData: any) => {
+        console.log('Updating Post:', formData);
+
+        await createPost(formData.title, formData.content);
+
+        setTimeout(() => {
+            setUpdatedUser(!updatedUser);
+        }, 10000);
+    };
+    const handleUpdatePost = async (formData: any) => {
+        console.log('Updating Post:', formData);
+
+        await updatePost(formData.title, formData.content, formData.address);
 
         setTimeout(() => {
             setUpdatedUser(!updatedUser);
@@ -73,99 +125,51 @@ const BackOffice = () => {
                 RPC: {connection.rpcEndpoint === 'https://api.devnet.solana.com' ? 'devnet' : 'localhost'}
             </h2>
             <h2 style={{ color: 'white' }}>Publed</h2>
-            <TableContainer sx={{ color: 'white', backgroundColor: 'white' }}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Public Key</TableCell>
-                            <TableCell>Authority</TableCell>
-                            <TableCell>Current Post Key</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {publedAccounts.map((row) => (
-                            <TableRow key={row.publicKey.toString()}>
-                                <TableCell>{row.publicKey.toString()}</TableCell>
-                                <TableCell>{row.account.authority.toString()}</TableCell>
-                                <TableCell>{row.account.currentPostKey.toString()}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+
+            <Tables data={publedAccounts} columns={['publicKey', 'account.authority', 'account.currentPostKey']} />
 
             <h2 style={{ color: 'white' }}>Users</h2>
-            <TableContainer sx={{ color: 'white', backgroundColor: 'white' }}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Public Key</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Avatar</TableCell>
-                            <TableCell>Orcid</TableCell>
-                            <TableCell>Authority</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {userAccounts?.map((row) => (
-                            <TableRow key={row.publicKey.toString()}>
-                                <TableCell>{row.publicKey.toString()}</TableCell>
-                                <TableCell>{row.account.name}</TableCell>
-                                <TableCell>{row.account.avatar}</TableCell>
-                                <TableCell>{row.account.orcid}</TableCell>
-                                <TableCell>{row.account.authority.toString()}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <Tables
+                data={userAccounts}
+                columns={['publicKey', 'account.name', 'account.avatar', 'account.orcid', 'account.authority']}
+            />
+
+            <h2 style={{ color: 'white' }}>Create User</h2>
+
+            <FormComponent
+                formTitle="Create User"
+                submitButtonText="Create User"
+                onSubmit={handleCreateUser}
+                formFields={createUserFormFields}
+            />
             <h2 style={{ color: 'white' }}>Edit User</h2>
-            <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
-                    backgroundColor: 'white',
-                }}
-                noValidate
-                autoComplete="off"
-                onSubmit={handleSubmit}
-            >
-                <TextField id="name" label="name" variant="standard" name="name" />
-                <TextField id="avatar" label="avatar" variant="standard" name="avatar" />
-                <Button type="submit">Update User</Button>
-            </Box>
+
+            <FormComponent
+                formTitle="Update User"
+                submitButtonText="Update User"
+                onSubmit={handleUpdateUser}
+                formFields={userFormFields}
+            />
 
             <h2 style={{ color: 'white' }}>Posts</h2>
-            <TableContainer sx={{ color: 'white', backgroundColor: 'white' }}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Public Key</TableCell>
-                            <TableCell>Title</TableCell>
-                            <TableCell>Content</TableCell>
-                            <TableCell>Authority</TableCell>
-                            <TableCell>PrePostKey</TableCell>
-                            <TableCell>User</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {postAccounts?.map((row) => (
-                            <TableRow key={row.publicKey.toString()}>
-                                <TableCell>{row.publicKey.toString()}</TableCell>
-                                <TableCell>{row.account.title}</TableCell>
-                                <TableCell>{row.account.content}</TableCell>
-                                <TableCell>{row.account.authority.toString()}</TableCell>
-                                <TableCell>{row.account.prePostKey.toString()}</TableCell>
-                                <TableCell>{row.account.user.toString()}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <Tables data={postAccounts} columns={['id', 'title', 'content', 'userId', 'prePostId']} />
 
-            <button onClick={createUser}>Create User</button>
-            <button onClick={createPost}>Create Post</button>
-            <button onClick={updatePost}>Update Post</button>
+            <h2 style={{ color: 'white' }}>Create Post</h2>
+
+            <FormComponent
+                formTitle="Create Post"
+                submitButtonText="Create Post"
+                onSubmit={handleCreatePost}
+                formFields={postFormFields}
+            />
+            <h2 style={{ color: 'white' }}>Edit Post</h2>
+
+            <FormComponent
+                formTitle="Update Post"
+                submitButtonText="Update Post"
+                onSubmit={handleUpdatePost}
+                formFields={postFormFields}
+            />
         </div>
     );
 };

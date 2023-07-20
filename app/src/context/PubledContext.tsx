@@ -1,10 +1,9 @@
-import React, { FC, ReactNode, createContext, useEffect, useId, useMemo, useState } from 'react';
+import React, { FC, ReactNode, createContext, useEffect, useMemo, useState } from 'react';
 import idl from '../idl.json';
-import { Connection, Keypair, PublicKey, SystemProgram } from '@solana/web3.js';
+import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import { AnchorWallet, useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { AnchorProvider, Idl, Program, Wallet } from '@project-serum/anchor';
 import { useCreateUser } from '../api/useCreateUser';
-import { useBackOffice } from '../api/useBackOffice';
 import { useUpdateUser } from '../api/useUpdateUser';
 import { useCreatePost } from '../api/useCreatePost';
 import { useUpdatePost } from '../api/useUpdatePost';
@@ -22,15 +21,16 @@ export interface IPost {
     authority: PublicKey;
 }
 export type PubledContextType = {
+    user?: IUser | undefined;
+    initialized?: Boolean;
     anchorWallet?: AnchorWallet;
     program?: Program<Idl>;
     provider?: AnchorProvider;
     connection: Connection;
-    createUser: () => void;
-    backOffice: () => void;
+    createUser: (name: String, avatar: String, orcid: String) => void;
     updateUser: (name: String, avatar: String) => void;
-    createPost: () => void;
-    updatePost: () => void;
+    createPost: (title: String, content: String) => void;
+    updatePost: (title: String, content: String, postAddress: String) => void;
 };
 
 export const getUserKey = (walletKey: PublicKey) => {
@@ -44,12 +44,14 @@ export const getUserKey = (walletKey: PublicKey) => {
 export const PubledContext = createContext<PubledContextType | null>(null);
 
 const PubledProvider: FC<ReactNode> = ({ children }) => {
-    console.log('Program Key:', PROGRAM_KEY.toString());
-
     const anchorWallet = useAnchorWallet();
     const { connection } = useConnection();
+    const { publicKey } = useWallet();
 
-    let program;
+    const [user, setUser] = useState<IUser>();
+    const [initialized, setInitialized] = useState<boolean>(false);
+
+    let program: Program;
     let provider;
 
     program = useMemo(() => {
@@ -58,9 +60,31 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
         return new Program(idl as Idl, PROGRAM_KEY, provider);
     }, [connection, anchorWallet]);
 
-    console.log('Provider:', provider);
+    useEffect(() => {
+        async function start() {
+            console.log('Starting...');
 
-    const backOffice = useBackOffice(program);
+            if (program && publicKey) {
+                try {
+                    const upk = await getUserKey(publicKey.publicKey);
+                    const user = await program.account.userState.fetch(upk);
+                    console.log(user);
+
+                    if (user) {
+                        setInitialized(true);
+                        setUser(user);
+                    }
+                } catch (error) {
+                    console.log('No users');
+                    setInitialized(false);
+                    console.log(error);
+                }
+            }
+        }
+
+        start();
+    }, [program, publicKey]);
+
     const createUser = useCreateUser(program, provider);
     const updateUser = useUpdateUser(program, provider);
     const createPost = useCreatePost(program, provider);
@@ -69,12 +93,13 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
     return (
         <PubledContext.Provider
             value={{
+                user,
+                initialized,
                 anchorWallet,
                 program,
                 provider,
                 connection,
                 createUser,
-                backOffice,
                 updateUser,
                 createPost,
                 updatePost,
