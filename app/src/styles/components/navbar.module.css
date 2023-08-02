@@ -1,0 +1,13 @@
+/* components/Navbar.module.scss */
+
+.navbar {
+    display: flex;
+    width: 1440px;
+    height: 80px;
+    padding: 16px 40px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    background: var(--secondary-blue-60, rgba(3, 37, 77, 0.6));
+    backdrop-filter: blur(6px);
+}

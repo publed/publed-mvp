@@ -112,6 +112,33 @@ pub mod publed_programs {
 
         Ok(())
     }
+
+    pub fn create_review(
+        ctx: Context<CreateReview>,
+        strenghts: String,
+        weaknesses: String,
+        obs: String,
+    ) -> ProgramResult {
+        let review_account = &mut ctx.accounts.review_account;
+        let post_account = &mut ctx.accounts.post_account;
+        let user_account = &mut ctx.accounts.user_account;
+        let authority = &mut ctx.accounts.authority;
+
+        review_account.strenghts = strenghts;
+        review_account.weaknesses = weaknesses;
+        review_account.obs = obs;
+        review_account.user = user_account.key();
+        review_account.post = post_account.key();
+        review_account.authority = authority.key();
+
+        emit!(PostEvent {
+            label: "CREATE".to_string(),
+            post_id: post_account.key(),
+            next_post_id: None
+        });
+
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -194,6 +221,19 @@ pub struct UpdateUser<'info> {
     pub authority: Signer<'info>,
 }
 
+#[derive(Accounts)]
+pub struct CreateReview<'info> {
+    #[account(init, payer = authority, space = 8 + 50 + 500 + 32 + 32 + 32 + 32 + 32 + 32)]
+    pub review_account: Account<'info, ReviewState>,
+    #[account(mut)]
+    pub post_account: Account<'info, PostState>,
+    #[account(mut, has_one = authority)]
+    pub user_account: Account<'info, UserState>,
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
 #[event]
 pub struct PostEvent {
     pub label: String,
@@ -221,5 +261,15 @@ pub struct PostState {
     content: String,
     user: Pubkey,
     pub pre_post_key: Pubkey,
+    pub authority: Pubkey,
+}
+
+#[account]
+pub struct ReviewState {
+    strenghts: String,
+    weaknesses: String,
+    obs: String,
+    user: Pubkey,
+    post: Pubkey,
     pub authority: Pubkey,
 }

@@ -8,6 +8,7 @@ import { useUpdateUser } from '../api/useUpdateUser';
 import { useCreatePost } from '../api/useCreatePost';
 import { useUpdatePost } from '../api/useUpdatePost';
 import { useDeletePost } from '../api/useDeletePost';
+import { useCreateReview } from '../api/useCreateReview';
 
 const PROGRAM_KEY = new PublicKey(idl.metadata.address);
 
@@ -33,6 +34,7 @@ export type PubledContextType = {
     createPost: (title: String, content: String) => void;
     updatePost: (title: String, content: String, postAddress: String) => void;
     deletePost: (postAddress: String) => void;
+    createReview: (strenghts: String, weaknesses: String, obs: String, postAddress: String) => void;
 };
 
 export const getUserKey = (walletKey: PublicKey) => {
@@ -92,6 +94,7 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
     const createPost = useCreatePost(program, provider);
     const updatePost = useUpdatePost(program, provider);
     const deletePost = useDeletePost(program, provider);
+    const createReview = useCreateReview(program, provider);
 
     return (
         <PubledContext.Provider
@@ -107,6 +110,7 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
                 createPost,
                 updatePost,
                 deletePost,
+                createReview,
             }}
         >
             {children}

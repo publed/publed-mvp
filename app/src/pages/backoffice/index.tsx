@@ -20,9 +20,8 @@ interface IPost {
 }
 
 const BackOffice = () => {
-    const { program, connection, createUser, updateUser, createPost, updatePost, deletePost } = useContext(
-        PubledContext
-    ) as PubledContextType;
+    const { program, connection, createUser, updateUser, createPost, updatePost, deletePost, createReview } =
+        useContext(PubledContext) as PubledContextType;
     const [publedAccounts, setPubledAccounts] = useState<IPubled[]>([]);
     const [userAccounts, setUserAccounts] = useState<IUser[]>([]);
     const [postAccounts, setPostAccounts] = useState<IPost[]>([]);
@@ -35,6 +34,8 @@ const BackOffice = () => {
 
             const users = await program?.account.userState.all();
             setUserAccounts(users);
+            const reviews = await program?.account.reviewState.all();
+            console.log(reviews);
 
             console.log(await program?.account.postState.all());
 
@@ -191,6 +192,10 @@ const BackOffice = () => {
                 onSubmit={handleDeletePost}
                 formFields={deleteFormFields}
             />
+
+            <Button onClick={() => createReview('a', 'a', 'a', 'HvaouxeiCmdKDEPnXuENRPNJ9ujoHtFGDPEfDXXuqBme')}>
+                Create Review
+            </Button>
         </div>
     );
 };

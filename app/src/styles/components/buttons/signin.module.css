@@ -1,0 +1,8 @@
+.button2 {
+    display: inline-flex;
+    padding: 100px 36px;
+    align-items: flex-start;
+    gap: 10px;
+    background-color: aquamarine;
+    color: black;
+}

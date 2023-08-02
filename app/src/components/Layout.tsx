@@ -12,12 +12,8 @@ type Props = {
 export default function Layout({ children }: Props) {
     return (
         <>
-            <header>
-                <Header />
-            </header>
-            <main id="page-component" style={{ wordWrap: 'break-word', minHeight: 'calc(100vh - 128px)' }}>
-                <Box py={4}>{children}</Box>
-            </main>
+            <Header />
+            {children}
             <footer>Footer</footer>
         </>
     );
