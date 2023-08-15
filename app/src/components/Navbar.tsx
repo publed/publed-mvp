@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { navLinks } from '../constants';
 import { close, hlogo, menu } from '../assets';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [toggle, setToggle] = useState<boolean>(false);
@@ -24,21 +25,26 @@ const Navbar = () => {
                                     className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-typo-white active:font-bold`}
                                 >
                                     {nav.id === 'about' ? (
-                                        <a href={`${nav.id}`}>{nav.title}</a>
-                                    ) : nav.id === 'home' ? (
-                                        <a href="/">{nav.title}</a>
+                                        <a href="https://publed-landingpage.vercel.app/about" target="__blank">
+                                            {nav.title}
+                                        </a>
                                     ) : (
-                                        <a href={`/#${nav.id}`}>{nav.title}</a>
+                                        <Link to={`/${nav.id}`}>{nav.title}</Link>
                                     )}
                                 </li>
                             ))}
                         </ul>
 
-                        <a href="https://publed.io" target="__blank">
-                            <button className=" px-4 py-2 ss:px-7 ss:py-3 rounded-full button-main text-typo-dark-blue font-medium transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
-                                Join Now
+                        <Link to="/signup">
+                            <button className=" rounded-full px-5 py-2 border text-sm text-typo-white font-medium transition ease-in-out delay-150 bg-primary-blue-7 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
+                                Sign Up
                             </button>
-                        </a>
+                        </Link>
+                        <Link to="/signin">
+                            <button className=" rounded-full px-5 py-2 border text-sm text-typo-dark-blue font-medium transition ease-in-out delay-150 bg-default-main hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
+                                Sign In
+                            </button>
+                        </Link>
 
                         <div className="md:hidden flex justify-end items-center">
                             <img

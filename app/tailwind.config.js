@@ -7,6 +7,7 @@ module.exports = {
                 default: {
                     40: '#A0A0A8',
                     20: '#C8C8CE',
+                    main: '#cfddee',
                 },
                 blue: {
                     7: '#071C2F',
@@ -16,6 +17,11 @@ module.exports = {
                     3: '#81C7FF',
                     2: '#ADCAEB',
                     1: '#DFEEFF',
+                },
+                primary: {
+                    blue: {
+                        7: '#052241',
+                    },
                 },
                 secondary: {
                     purple: '#8280FF',
@@ -34,6 +40,26 @@ module.exports = {
                     'typo-white': '#f3f3f3',
                 },
             },
+        },
+        textColor: {
+            default: {
+                80: '#2E2E35',
+                40: '#A0A0A8',
+                20: '#C8C8CE',
+                60: '#5A5A65',
+            },
+            'secondary-red': '#FF8080',
+            'secondary-yellow': '#FFB119',
+            'typo-dark-blue': '#202668',
+            'typo-white': '#f3f3f3',
+            'typo-grey': '#8a8a8a',
+            'typo-dark-grey': '#3A3A3A',
+            'typo-black': '#131317',
+            'primary-blue': {
+                3: '#81c7ff',
+            },
+            'secondary-pink': '#C780FF',
+            'secondary-purple': '#8280FF',
         },
     },
     plugins: [require('@tailwindcss/forms')],

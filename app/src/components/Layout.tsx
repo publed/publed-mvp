@@ -11,7 +11,7 @@ type Props = {
 export default function Layout({ children }: Props) {
     return (
         <>
-            <div className="bg-secondary-blue-60 backdrop-blur-[6px] sm:px-8 px-4 flex justify-center items-center fixed w-full z-10">
+            <div className="bg-primary-blue-7 backdrop-blur-[6px] sm:px-8 px-4 flex justify-center items-center fixed w-full z-10">
                 <div className="w-full">
                     <Navbar />
                 </div>
