@@ -2,19 +2,21 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import React from 'react';
 
 const SignUp = () => {
+    const [orcid, setOrcid] = React.useState(false);
+
     return (
         <div className="min-h-screen flex justify-center items-center container mx-auto">
             <div className="flex flex-col gap-9 items-center max-w-sm">
                 <header className="flex justify-center">
-                    <h1 className="text-4xl font-medium">Sign Up</h1>
+                    <h1 className="text-typo-black text-4xl font-medium">Sign Up</h1>
                 </header>
                 <div>
-                    <h2 className="text-xl mb-2">Connect your wallet</h2>
-                    <p className="text-sm mb-5 text-[#3A3A3A]">
+                    <h2 className="text-typo-black text-xl mb-2">Connect your wallet</h2>
+                    <p className="text-typo-dark-grey text-sm mb-5">
                         Choose a wallet to connect. If you don't have a wallet, you can select a provider and create
-                        one. <a className="underline text-[#202668]">Learn More</a>
+                        one. <a className="text-typo-dark-blue decoration-typo-dark-blue underline">Learn More</a>
                     </p>
-                    <button className="rounded-full px-5 py-2 border text-sm">Connect Wallet</button>
+                    <Button variant="small">Connect Wallet</Button>
                 </div>
                 <form className="grid grid-cols-1 gap-7 w-full">
                     <InputGroup label={'Enter your name'}>
@@ -33,21 +35,56 @@ const SignUp = () => {
                         <span className="text-[#131317] block font-medium text-lg mb-2">Do you have an ORCID?</span>
                         <div className="flex gap-8">
                             <div>
-                                <input className="mr-3" type="radio" value="yes" name="yes" id="yes" />
+                                <input
+                                    className="mr-3"
+                                    type="radio"
+                                    value="yes"
+                                    name="orcid"
+                                    id="yes"
+                                    onChange={(evt) => setOrcid(evt.target.value === 'yes')}
+                                />
                                 <label htmlFor="yes">Yes</label>
                             </div>
                             <div>
-                                <input className="mr-3" type="radio" value="no" name="no" id="no" />
+                                <input
+                                    className="mr-3"
+                                    type="radio"
+                                    value="no"
+                                    name="orcid"
+                                    id="no"
+                                    onChange={(evt) => setOrcid(!(evt.target.value === 'no'))}
+                                />
                                 <label htmlFor="no">No</label>
                             </div>
                         </div>
                     </div>
+                    {orcid && (
+                        <InputGroup label={'Enter your ORCID'}>
+                            <Input type="text" name="orcid" placeholder="ORCID" />
+                        </InputGroup>
+                    )}
 
-                    <input className="mx-auto rounded-full px-9 py-3 border" type="submit" value={'Create Profile'} />
+                    <div className="flex justify-center">
+                        <Button variant="blue">Create Profile</Button>
+                    </div>
                 </form>
             </div>
         </div>
     );
+};
+interface ButtonI {
+    variant: 'light' | 'blue' | 'secondary' | 'small';
+    children: string;
+}
+const Button = ({ variant, children }: ButtonI) => {
+    const variants = {
+        light: 'rounded-full px-9 py-3 leading-tight font-medium text-typo-dark-blue bg-button-main hover:bg-button-hover focus:bg-button-main focus:ring-ring focus:ring-4',
+        blue: 'rounded-full px-9 py-3 leading-tight font-medium text-typo-white bg-button-blue hover:bg-button-hover-dark focus:bg-button-blue focus:ring-ring focus:ring-4',
+        secondary:
+            'rounded-full px-9 py-3 leading-tight font-medium text-typo-white bg-transparent border border-button-main hover:bg-button-blue focus:bg-transparent focus:ring-ring focus:ring-4',
+        small: 'rounded-full px-5 py-2 text-sm text-typo-dark-blue bg-button-main border border-button-blue hover:bg-button-hover focus:bg-button-main focus:ring-ring focus:ring-4',
+    };
+    return <button className={variants[variant]}>{children}</button>;
 };
 
 const InputGroup = ({ label, children }: any) => {
