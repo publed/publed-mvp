@@ -22,6 +22,11 @@ export const pages = [
         path: '/signup',
     },
     {
+        component: lazy(() => import('../pages/explore')),
+        title: 'Explore',
+        path: '/explore',
+    },
+    {
         component: lazy(() => import('../pages/contact')),
         title: 'Contact Us',
         path: '/contact',

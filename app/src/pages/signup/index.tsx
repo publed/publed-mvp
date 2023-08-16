@@ -1,11 +1,15 @@
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import React from 'react';
+import Button from '../../components/Button';
+import Modal from '../../components/Modal';
+import Select from '../../components/Select';
+import WalletRadio from '../../components/WalletRadio';
 
 const SignUp = () => {
     const [orcid, setOrcid] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
     return (
-        <div className="min-h-screen flex justify-center items-center container mx-auto">
+        <div className="min-h-screen flex justify-center items-center container mx-auto mt-12">
             <div className="flex flex-col gap-9 items-center max-w-sm">
                 <header className="flex justify-center">
                     <h1 className="text-typo-black text-4xl font-medium">Sign Up</h1>
@@ -16,7 +20,28 @@ const SignUp = () => {
                         Choose a wallet to connect. If you don't have a wallet, you can select a provider and create
                         one. <a className="text-typo-dark-blue decoration-typo-dark-blue underline">Learn More</a>
                     </p>
-                    <Button variant="small">Connect Wallet</Button>
+                    <Button variant="small" onClick={() => setOpen(true)}>
+                        Connect Wallet
+                    </Button>
+                    <Modal showModal={open} setShowModal={setOpen}>
+                        <div className="text-typo-black">
+                            <h2 className="text-xl text-center font-medium mb-7">Connect your wallet</h2>
+                        </div>
+                        <div className="flex flex-col space-y-4">
+                            <WalletRadio
+                                icon={<div className="h-10 w-10 bg-purple-500 rounded-full" />}
+                                label="Phantom"
+                                id="phantom"
+                                name="wallet"
+                            />
+                            <WalletRadio
+                                icon={<div className="h-10 w-10 bg-red-500 rounded-full" />}
+                                label="Backpack"
+                                id="backpack"
+                                name="wallet"
+                            />
+                        </div>
+                    </Modal>
                 </div>
                 <form className="grid grid-cols-1 gap-7 w-full">
                     <InputGroup label={'Enter your name'}>
@@ -32,7 +57,7 @@ const SignUp = () => {
                         />
                     </InputGroup>
                     <div className="block text-left">
-                        <span className="text-[#131317] block font-medium text-lg mb-2">Do you have an ORCID?</span>
+                        <span className="text-typo-black block font-medium text-lg mb-2">Do you have an ORCID?</span>
                         <div className="flex gap-8">
                             <div>
                                 <input
@@ -72,25 +97,11 @@ const SignUp = () => {
         </div>
     );
 };
-interface ButtonI {
-    variant: 'light' | 'blue' | 'secondary' | 'small';
-    children: string;
-}
-const Button = ({ variant, children }: ButtonI) => {
-    const variants = {
-        light: 'rounded-full px-9 py-3 leading-tight font-medium text-typo-dark-blue bg-button-main hover:bg-button-hover focus:bg-button-main focus:ring-ring focus:ring-4',
-        blue: 'rounded-full px-9 py-3 leading-tight font-medium text-typo-white bg-button-blue hover:bg-button-hover-dark focus:bg-button-blue focus:ring-ring focus:ring-4',
-        secondary:
-            'rounded-full px-9 py-3 leading-tight font-medium text-typo-white bg-transparent border border-button-main hover:bg-button-blue focus:bg-transparent focus:ring-ring focus:ring-4',
-        small: 'rounded-full px-5 py-2 text-sm text-typo-dark-blue bg-button-main border border-button-blue hover:bg-button-hover focus:bg-button-main focus:ring-ring focus:ring-4',
-    };
-    return <button className={variants[variant]}>{children}</button>;
-};
 
 const InputGroup = ({ label, children }: any) => {
     return (
         <label className="block text-left">
-            <span className="text-[#131317] block font-medium text-lg mb-2">{label}</span>
+            <span className="text-typo-black block font-medium text-lg mb-2">{label}</span>
             {children}
         </label>
     );
@@ -106,36 +117,6 @@ const Input = ({ type, name, placeholder, value = '' }: any) => {
             placeholder={placeholder}
             className="w-full bg-white border border-gray-300 px-4 py-2 rounded-lg text-gray-700 disabled:opacity-50"
         />
-    );
-};
-
-interface SelectI {
-    options: any[];
-    getOptionLabel: (option: any) => string;
-    changeHandler: (evt: any) => any;
-    selected: string;
-    placeholder?: string;
-}
-
-const Select = ({ options, getOptionLabel, changeHandler, selected, placeholder }: SelectI) => {
-    return (
-        <select
-            className="w-full bg-white border border-gray-300 px-4 py-2 rounded-lg text-gray-700 disabled:opacity-50"
-            name="type"
-            defaultValue={selected}
-            onChange={(evt) => changeHandler(options[Number(evt.target.value)])}
-        >
-            {placeholder && (
-                <option value={selected} disabled>
-                    {placeholder}
-                </option>
-            )}
-            {options.map((option, index) => (
-                <option value={index} key={index}>
-                    {getOptionLabel(option)}
-                </option>
-            ))}
-        </select>
     );
 };
 
