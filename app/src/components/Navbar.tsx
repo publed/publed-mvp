@@ -29,7 +29,7 @@ const Navbar = () => {
                                           className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-default-0 active:font-bold`}
                                       >
                                           {nav.id === 'about' ? (
-                                              <a href="https://publed-landingpage.vercel.app/about" target="__blank">
+                                              <a href="https://publed.io/about" target="__blank">
                                                   {nav.title}
                                               </a>
                                           ) : (
@@ -43,7 +43,7 @@ const Navbar = () => {
                                           className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-default-0 active:font-bold`}
                                       >
                                           {nav.id === 'about' ? (
-                                              <a href="https://publed-landingpage.vercel.app/about" target="__blank">
+                                              <a href="https://publed.io/about" target="__blank">
                                                   {nav.title}
                                               </a>
                                           ) : (

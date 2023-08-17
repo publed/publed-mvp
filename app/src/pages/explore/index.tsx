@@ -4,12 +4,14 @@ import { useContext, useEffect, useState } from 'react';
 import { MetaplexContext } from '../../context/MetaplexContext';
 import { PublicKey, walletAdapterIdentity } from '@metaplex-foundation/js';
 import { PubledContext } from '../../context/PubledContext';
+import { Link } from 'react-router-dom';
 
 const Explore = () => {
     const { mx } = useContext(MetaplexContext);
     const { posts } = useContext(PubledContext);
 
     const [researchObject, setResearchObject] = useState();
+    console.log(researchObject);
 
     const wallet = useWallet();
     mx.use(walletAdapterIdentity(wallet));
@@ -44,7 +46,9 @@ const Explore = () => {
                 </div>
                 <div className="space-y-4">
                     {researchObject?.map((item, index) => (
-                        <ResearchCard key={index} {...item} />
+                        <Link to={`/research/${item.name}`} key={index}>
+                            <ResearchCard key={index} {...item} />
+                        </Link>
                     ))}
                 </div>
             </div>

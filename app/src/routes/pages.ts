@@ -29,7 +29,7 @@ export const pages = [
     {
         component: lazy(() => import('../pages/research')),
         title: 'Research',
-        path: '/research',
+        path: '/research/:name',
     },
     {
         component: lazy(() => import('../pages/review')),
