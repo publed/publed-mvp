@@ -1,6 +1,39 @@
+import { useWallet } from '@solana/wallet-adapter-react';
 import ResearchCard from '../../components/ResearchCard';
+import { useContext, useEffect, useState } from 'react';
+import { MetaplexContext } from '../../context/MetaplexContext';
+import { PublicKey, walletAdapterIdentity } from '@metaplex-foundation/js';
+import { PubledContext } from '../../context/PubledContext';
 
 const Explore = () => {
+    const { mx } = useContext(MetaplexContext);
+    const { posts } = useContext(PubledContext);
+
+    const [researchObject, setResearchObject] = useState();
+
+    const wallet = useWallet();
+    mx.use(walletAdapterIdentity(wallet));
+
+    const postsList = async () => {
+        const filteredContents = posts
+            .filter((post: any) => post.account.content.length > 12)
+            .map((post: any) => post.account.content);
+
+        console.log(filteredContents);
+        const fetchNFTData = async (mintAddress: string) => {
+            return (await mx.nfts().findByMint({ mintAddress: new PublicKey(mintAddress) })).json;
+        };
+
+        const nftDataArray = await Promise.all(filteredContents.map(fetchNFTData));
+
+        setResearchObject(nftDataArray);
+        console.log(nftDataArray);
+    };
+
+    useEffect(() => {
+        postsList();
+    }, [posts]);
+
     return (
         <div className="min-h-screen w-full py-20 bg-background-grey">
             <div className="w-[800px] mx-auto mt-10">
@@ -10,7 +43,7 @@ const Explore = () => {
                     <Pill label="Premium" />
                 </div>
                 <div className="space-y-4">
-                    {data.map((item, index) => (
+                    {researchObject?.map((item, index) => (
                         <ResearchCard key={index} {...item} />
                     ))}
                 </div>

@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import PubledRoutes from './routes/routes';
 import PubledProvider from './context/PubledContext';
+import { MetaplexContext, MetaplexProvider } from './context/MetaplexContext';
 
 require('./App.css');
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -34,16 +35,18 @@ const App: FC = () => {
         <SolanaWalletProvider>
             <PubledProvider>
                 <BrowserRouter>
-                    <Routes>
-                        <Route
-                            path="*"
-                            element={
-                                <Layout>
-                                    <PubledRoutes></PubledRoutes>
-                                </Layout>
-                            }
-                        ></Route>
-                    </Routes>
+                    <MetaplexProvider>
+                        <Routes>
+                            <Route
+                                path="*"
+                                element={
+                                    <Layout>
+                                        <PubledRoutes />
+                                    </Layout>
+                                }
+                            />
+                        </Routes>
+                    </MetaplexProvider>
                 </BrowserRouter>
             </PubledProvider>
         </SolanaWalletProvider>

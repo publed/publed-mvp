@@ -7,25 +7,29 @@ import Slides from '../icons/Slides';
 import Code from '../icons/Code';
 
 interface ResearchCardProps {
-    title: string;
-    author: string;
-    tag: 'Free' | 'Premium';
-    doi: string;
-    status: 'success' | 'pending' | 'rejected';
+    description: string;
+    symbol: string;
+    attributes: [];
 }
 
-const ResearchCard = ({ title, author, tag, doi, status }: ResearchCardProps) => {
+const ResearchCard = ({ description: name, attributes }: ResearchCardProps) => {
+    console.log(name, attributes);
+
     return (
         <div className="bg-white p-5 w-[800px] border rounded-lg">
             <div className="flex items-start mb-6">
                 <div className="grow mr-10">
-                    <h2 className="text-lg font-medium mb-2 text-default-blue-80">{title}</h2>
-                    <p className="font-medium text-default-blue-60">{author}</p>
+                    <h2 className="text-lg font-medium mb-2 text-default-blue-80">{name || 'N/A'}</h2>
+                    <p className="font-medium text-default-blue-60">
+                        {attributes?.find((attr: any) => attr.trait_type === 'Author')?.value || 'N/A'}
+                    </p>
                 </div>
-                <Tag label={tag} />
+                <Tag label={attributes?.find((attr: any) => attr.trait_type === 'Access')?.value || 'N/A'} />
             </div>
             <div className="flex justify-between items-center">
-                <p className="text-sm text-typo-black">DOI: {doi}</p>
+                <p className="text-sm text-typo-black">
+                    DOI: {attributes?.find((attr: any) => attr.trait_type === 'DOI')?.value || 'N/A'}
+                </p>
                 <div className="flex gap-4 items-center">
                     <div className="flex gap-2 fill-default-blue-40">
                         <Document />
@@ -34,7 +38,9 @@ const ResearchCard = ({ title, author, tag, doi, status }: ResearchCardProps) =>
                         <Slides />
                         <Code />
                     </div>
-                    <Badge variant={status} />
+                    <Badge
+                        variant={attributes?.find((attr: any) => attr.trait_type === 'State')?.value || 'To Review'}
+                    />
                 </div>
             </div>
         </div>

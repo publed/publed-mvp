@@ -24,6 +24,7 @@ export interface IPost {
 }
 export type PubledContextType = {
     user?: IUser | undefined;
+    posts?: IPost | undefined;
     initialized?: Boolean;
     anchorWallet?: AnchorWallet;
     program?: Program<Idl>;
@@ -38,6 +39,8 @@ export type PubledContextType = {
 };
 
 export const getUserKey = (walletKey: PublicKey) => {
+    console.log('WAllet Key:', walletKey);
+
     const userAccount = Keypair.fromSeed(
         new TextEncoder().encode(`${PROGRAM_KEY.toString().slice(0, 15)}__${walletKey.toString().slice(0, 15)}`)
     );
@@ -53,24 +56,33 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
     const { publicKey } = useWallet();
 
     const [user, setUser] = useState<IUser>();
+    const [posts, setPosts] = useState();
     const [initialized, setInitialized] = useState<boolean>(false);
+    const [provider, setProvider] = useState();
 
     let program: Program;
-    let provider;
-
+    let p;
     program = useMemo(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        provider = new AnchorProvider(connection, anchorWallet as Wallet, AnchorProvider.defaultOptions());
-        return new Program(idl as Idl, PROGRAM_KEY, provider);
+        p = new AnchorProvider(connection, anchorWallet as Wallet, AnchorProvider.defaultOptions());
+        setProvider(p);
+        console.log('Provider p: ', p);
+
+        return new Program(idl as Idl, PROGRAM_KEY, p);
     }, [connection, anchorWallet]);
+
+    console.log('Provider Context: ', provider);
 
     useEffect(() => {
         async function start() {
             console.log('Starting...');
             console.log('publick key', publicKey?.toString());
 
-            if (program && (publicKey || initialized)) {
+            if (program && publicKey) {
                 try {
+                    console.log('Public Key: ', publicKey?.toString());
+                    listPosts();
+
                     const upk = await getUserKey(publicKey);
                     const user = await program.account.userState.fetch(upk.publicKey);
                     console.log('User:', user);
@@ -98,10 +110,16 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
     const deletePost = useDeletePost(program, provider);
     const createReview = useCreateReview(program, provider);
 
+    const listPosts = async () => {
+        const posts = await program?.account.postState.all();
+        setPosts(posts);
+    };
+
     return (
         <PubledContext.Provider
             value={{
                 user,
+                posts,
                 initialized,
                 anchorWallet,
                 program,

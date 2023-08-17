@@ -1,25 +1,26 @@
 import Done from '../icons/Done';
 import Time from '../icons/Time';
 import Close from '../icons/Close';
-
 interface IBadge {
-    variant: 'success' | 'pending' | 'rejected';
+    variant: 'Reviewed' | 'To Review' | 'Rejected';
 }
 
 const variants = {
-    success: {
+    // prettier-ignore
+    "Reviewed": {
         label: 'Reviewed',
         cardColor: 'bg-system-success/10 border-system-success',
         textColor: 'text-system-success',
         icon: <Done className="fill-system-success" />,
     },
-    pending: {
-        label: 'Pending',
+    'To Review': {
+        label: 'To Review',
         cardColor: 'bg-system-warning/10 border-system-warning',
         textColor: 'text-system-warning',
         icon: <Time className="fill-system-warning" />,
     },
-    rejected: {
+    // prettier-ignore
+    "Rejected": {
         label: 'Rejected',
         cardColor: 'bg-system-error/10 border-system-error',
         textColor: 'text-system-error',

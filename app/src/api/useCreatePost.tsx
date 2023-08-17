@@ -7,6 +7,8 @@ const PUBLED_KEY = new PublicKey('8RqEmmuWsyRV9sKFZAQ1GVZjqkH3YtHq34Wo3qMQmHnE')
 export function useCreatePost(program: Program, provider: Provider) {
     const createPost = async (title: String, content: String) => {
         async function createPost() {
+            console.log('Provider:', provider?.wallet.publicKey);
+
             const userAccount = await getUserKey(provider?.wallet.publicKey);
 
             const postAccount = Keypair.generate();

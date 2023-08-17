@@ -1,20 +1,45 @@
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { Connection, LAMPORTS_PER_SOL, clusterApiUrl } from '@solana/web3.js';
-import { useEffect } from 'react';
+import { Connection, Keypair, LAMPORTS_PER_SOL, clusterApiUrl } from '@solana/web3.js';
+import { useContext, useEffect, useState } from 'react';
 import FormComponent from '../../components/Form';
 import { Input, InputGroup } from '../signup';
 import { actions } from '@metaplex/js';
-import { Metaplex, bundlrStorage, keypairIdentity, walletAdapterIdentity } from '@metaplex-foundation/js';
+import {
+    Metaplex,
+    MetaplexFile,
+    bundlrStorage,
+    keypairIdentity,
+    toMetaplexFile,
+    toMetaplexFileFromBrowser,
+    walletAdapterIdentity,
+} from '@metaplex-foundation/js';
+import { PubledContext } from '../../context/PubledContext';
+import { MetaplexContext } from '../../context/MetaplexContext';
+import base58, * as bs58 from 'bs58';
 
 const Home = () => {
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [imageFile, setImageFile] = useState<MetaplexFile>();
+    const [pdf, setPDF] = useState<MetaplexFile>();
+    const [video, setVideo] = useState<MetaplexFile>();
+
     const wallet = useWallet();
     const metaplexConnection = new Connection(clusterApiUrl('devnet'));
+
+    const walletP = Keypair.fromSecretKey(
+        //8U34qHx55Bk71JwQ67XLqFaawSz9oHfAy5jCfLDdhvtP
+        base58.decode('3eT2VjzqqgEkjqEiNvSQb941CMc5sDgDYANzaHLeJB9xcuuVTG3TRnxdpEJgTBctD1Gt7BE1ekBZRpQH9rqeoTVR')
+    );
+    // const mx = Metaplex.make(metaplexConnection)
+    //     .use(walletAdapterIdentity(wallet))
+    //     .use(bundlrStorage({ address: 'https://devnet.bundlr.network' }));
     const mx = Metaplex.make(metaplexConnection)
-        .use(walletAdapterIdentity(wallet))
+        .use(keypairIdentity(walletP))
         .use(bundlrStorage({ address: 'https://devnet.bundlr.network' }));
     console.log('MX:', mx);
 
     const { connection } = useConnection();
+    // const { mx } = useContext(MetaplexContext);
 
     let lamportBalance: any;
 
@@ -30,47 +55,70 @@ const Home = () => {
         getBalance();
     }, [wallet]);
 
+    const handleImageChange = async (event) => {
+        const browserFile: File = event.target.files[0];
+        const file: MetaplexFile = await toMetaplexFileFromBrowser(browserFile);
+        setImageFile(file);
+    };
+    const handlePDFChange = async (event) => {
+        const browserFile: File = event.target.files[0];
+        const file: MetaplexFile = await toMetaplexFileFromBrowser(browserFile);
+        setPDF(file);
+    };
+    const handleVideoChange = async (event) => {
+        const browserFile: File = event.target.files[0];
+        const file: MetaplexFile = await toMetaplexFileFromBrowser(browserFile);
+        setVideo(file);
+    };
+
     const NFTmint = async () => {
-        //     const mintNftResponse = await actions.mintNFT({
-        //         connection,
-        //         wallet: wallet, // It need to match your wallet and creators address of Metadata.
-        //         uri: 'https://arweave.net/_b2WhU6c7tHqYUsk4sVEChNITesTnGSSw7SQix2fEw8l',
-        //         maxSupply: 1,
-        //     });
-
-        // setSolTransactionId(mintNftResponse.mint.toString());
-        //     console.log('mint =>', mintNftResponse.mint.toString());
-
-        // const { nft } = await mx.nfts().create({
-        //     uri: 'https://n3p6rezfrxbhtmi7cpxeimirgwwm6jwjp3wk32e6ohfssfhom67a.arweave.net/bt_okyWNwnmxHxPuRDERNazPJsl-7K3onnHLKRTuZ74',
-        //     name: 'My NFT',
-        //     sellerFeeBasisPoints: 500, // Represents 5.00%.
-        // });
-        // const { uri: newUri } = await mx.nfts().uploadMetadata({
-        //     name: 'My Updated Metadata Name',
-        //     description: 'My Updated Metadata Description',
-        // });
+        // const imgMetaplexFile = toMetaplexFileFromBrowser(imageFile, 'fileName');
+        // const uri = await mx.storage().upload(imageFile);
 
         const { uri } = await mx.nfts().uploadMetadata({
-            name: 'valueName',
-            symbol: 'valueSymbol',
-            description: 'valueDescription',
+            name: 'BAO #RO',
+            symbol: 'BAO',
+            description: 'BAO - A Lightweight Static Partitioning Hypervisor',
             seller_fee_basis_points: 500,
-            image: 'valueImage',
-            external_url: 'valueExternalUrl',
+            image: imageFile,
+            external_url: 'http://www.bao-project.org/',
             collection: {
-                name: 'valueCollectionName',
-                family: 'valueCollectionFamily',
+                name: 'BAO',
+                family: 'BAO #RO',
             },
-            attributes: {
-                trait_type: 'Date',
-                value: 'Jan 2020',
-            },
+            attributes: [
+                {
+                    trait_type: 'Author',
+                    value: 'José Martins, Adriano Tavares, Marco Solieri, Marko Bertogna, Sandro Pinto',
+                },
+                { trait_type: 'Date', value: 'Jan 2020' },
+                { trait_type: 'DOI', value: '10.4230/OASIcs.NG-RES.2020.3' },
+                {
+                    trait_type: 'Abstract',
+                    value: 'Given the increasingly complex and mixed-criticality nature of modern embedded systems, virtualiz-ation emerges as a natural solution to achieve strong spatial and temporal isolation. Widely used hypervisors such as KVM and Xen were not designed having embedded constraints and requirements in mind. The static partitioning architecture pioneered by Jailhouse seems to address embedded concerns. However, Jailhouse still depends on Linux to boot and manage its VMs. In this paper, we present the Bao hypervisor, a minimal, standalone and clean-slate implementation of the static partitioning architecture for Armv8 and RISC-V platforms. Preliminary results regarding size, boot, performance, and interrupt latency, show this approach incurs only minimal virtualization overhead. Bao will soon be publicly available, in hopes of engaging both industry and academia on improving Baos safety, security, and real-time guarantees. 2012 ACM Subject Classification Security and privacy → Virtualization and security; Software and its engineering → Real-time systems software',
+                },
+                { trait_type: 'State', value: 'Reviewed' },
+                { trait_type: 'Access', value: 'Premium' },
+            ],
             properties: {
                 creators: [
                     {
-                        address: 'user.authority.toString()',
+                        address: wallet?.publicKey.toString(),
                         share: 100,
+                    },
+                ],
+                files: [
+                    {
+                        uri: imageFile,
+                        type: 'image/png',
+                    },
+                    {
+                        uri: pdf,
+                        type: 'application/pdf',
+                    },
+                    {
+                        uri: video,
+                        type: 'movie/mp4',
                     },
                 ],
             },
@@ -78,16 +126,16 @@ const Home = () => {
 
         console.log(uri);
 
-        const { nft } = await mx.nfts().create(
-            {
-                name: 'First NFT',
-                uri: uri,
-                sellerFeeBasisPoints: 500, // Represents 5.00%.
-            },
-            { commitment: 'finalized' }
-        );
+        // const { nft } = await mx.nfts().create(
+        //     {
+        //         name: 'BAO #RO',
+        //         uri: 'https://arweave.net/MxSF2JYai9DsIzttHolnCjB8FuPMNRsYYH0Tiu4rdPI',
+        //         sellerFeeBasisPoints: 500, // Represents 5.00%.
+        //     },
+        //     { commitment: 'finalized' }
+        // );
 
-        console.log(nft.mint.address.toBase58());
+        // console.log(nft.mint.address.toBase58());
     };
 
     return (
@@ -98,6 +146,30 @@ const Home = () => {
             <InputGroup label={'Enter your name'}>
                 <Input type="text" name="name" placeholder="Name"></Input>
             </InputGroup>
+            <input
+                accept="/*"
+                type="file"
+                id="image-upload"
+                name="image-upload"
+                className=""
+                onChange={handleImageChange}
+            />
+            <input
+                accept="/*"
+                type="file"
+                id="image-upload"
+                name="image-upload"
+                className=""
+                onChange={handlePDFChange}
+            />
+            <input
+                accept="/*"
+                type="file"
+                id="image-upload"
+                name="image-upload"
+                className=""
+                onChange={handleVideoChange}
+            />
             <button onClick={NFTmint}>mint</button>
         </div>
     );
