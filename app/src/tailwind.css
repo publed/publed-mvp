@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-ring:focus {
+    box-shadow: 0px 0px 0px 4px #EAF3FD;
+}

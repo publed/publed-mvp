@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import WalletRadio from '../../components/WalletRadio';
 import Select from '../../components/Select';
+import Input from '../../components/Input';
 
 const SignUp = () => {
     const { createUser } = useContext(PubledContext);
@@ -41,20 +42,20 @@ const SignUp = () => {
         <div className="min-h-screen flex justify-center items-center container mx-auto mt-12">
             <div className="flex flex-col gap-9 items-center max-w-sm">
                 <header className="flex justify-center">
-                    <h1 className="text-typo-black text-4xl font-medium">Sign Up</h1>
+                    <h1 className="text-default-100 text-4xl font-medium">Sign Up</h1>
                 </header>
                 <div>
-                    <h2 className="text-typo-black text-xl mb-2">Connect your wallet</h2>
-                    <p className="text-typo-dark-grey text-sm mb-5">
+                    <h2 className="text-default-100 text-xl mb-2">Connect your wallet</h2>
+                    <p className="text-default-70 text-sm mb-5">
                         Choose a wallet to connect. If you don't have a wallet, you can select a provider and create
-                        one. <a className="text-typo-dark-blue decoration-typo-dark-blue underline">Learn More</a>
+                        one. <a className="text-dark-blue-60 decoration-dark-blue-60 underline">Learn More</a>
                     </p>
                     {/* <Button variant="small" onClick={() => setOpen(true)}>
                         Connect Wallet
                     </Button> */}
-                    <WalletMultiButton className="rounded-full px-5 py-2 text-sm text-typo-dark-blue bg-button-main border border-button-blue hover:bg-button-hover focus:bg-button-main focus:ring-ring focus:ring-4" />
+                    <WalletMultiButton className="px-5 py-2 rounded-full border border-dark-blue-60 bg-regular-blue-20 text-dark-blue-60 text-sm font-medium hover:bg-regular-blue-30 focus:bg-regular-blue-20 focus:ring-ring focus:ring-4" />
                     <Modal showModal={open} setShowModal={setOpen}>
-                        <div className="text-typo-black">
+                        <div className="text-default-100">
                             <h2 className="text-xl text-center font-medium mb-7">Connect your wallet</h2>
                         </div>
                         <div className="flex flex-col space-y-4">
@@ -87,7 +88,7 @@ const SignUp = () => {
                         />
                     </InputGroup>
                     <div className="block text-left">
-                        <span className="text-typo-black block font-medium text-lg mb-2">Do you have an ORCID?</span>
+                        <span className="text-default-100 block font-medium text-lg mb-2">Do you have an ORCID?</span>
                         <div className="flex gap-8">
                             <div>
                                 <input
@@ -131,23 +132,9 @@ const SignUp = () => {
 export const InputGroup = ({ label, children }: any) => {
     return (
         <label className="block text-left">
-            <span className="text-typo-black block font-medium text-lg mb-2">{label}</span>
+            <span className="text-default-100 block font-medium text-lg mb-3">{label}</span>
             {children}
         </label>
-    );
-};
-
-export const Input = ({ type, name, placeholder, value = '', changeHandler }: any) => {
-    return (
-        <input
-            type={type}
-            name={name}
-            id={name}
-            defaultValue={value}
-            placeholder={placeholder}
-            onChange={changeHandler}
-            className="w-full bg-white border border-gray-300 px-4 py-2 rounded-lg text-gray-700 disabled:opacity-50"
-        />
     );
 };
 

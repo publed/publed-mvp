@@ -55,8 +55,8 @@ const Explore = () => {
 const Pill = ({ label, isActive }: any) => {
     return (
         <div
-            className={`rounded-full px-5 py-[10px] inline-block border border-default-blue-30 uppercase bg-white font-medium text-default-80 ${
-                isActive ? 'bg-default-blue-30' : ''
+            className={`rounded-full px-5 py-[10px] inline-block border border-dark-blue-30 uppercase bg-white font-medium text-default-80 ${
+                isActive ? 'bg-dark-blue-30' : ''
             }`}
         >
             {label}
