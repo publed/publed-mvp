@@ -1,8 +1,36 @@
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { PubledContext } from '../../context/PubledContext';
 
 const SignUp = () => {
-    const [orcid, setOrcid] = React.useState(false);
+    const { createUser } = useContext(PubledContext);
+    const [orcid, setOrcid] = useState(false);
+    const [fname, setFname] = useState('');
+
+    const [selectedRole, setSelectedRole] = useState('');
+    const roleOptions = [
+        { value: 'university', label: 'University' },
+        { value: 'reviewer', label: 'Reviewer' },
+        { value: 'author', label: 'Author' },
+    ];
+
+    const handleCreateUser = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
+        console.log({
+            name: data.get('name'),
+            orcid: data.get('orcidNumber'),
+        });
+
+        console.log('Creating User:');
+
+        await createUser(data.get('name'), 'avatar', data.get('orcidNumber'));
+
+        // setTimeout(() => {
+        //     setUpdatedUser(!updatedUser);
+        // }, 10000);
+    };
 
     return (
         <div className="min-h-screen flex justify-center items-center container mx-auto">
@@ -16,17 +44,18 @@ const SignUp = () => {
                         Choose a wallet to connect. If you don't have a wallet, you can select a provider and create
                         one. <a className="text-typo-dark-blue decoration-typo-dark-blue underline">Learn More</a>
                     </p>
-                    <Button variant="small">Connect Wallet</Button>
+                    {/* <Button variant="small">Connect Wallet</Button> */}{' '}
+                    <WalletMultiButton className="rounded-full px-5 py-2 text-sm text-typo-dark-blue bg-button-main border border-button-blue hover:bg-button-hover focus:bg-button-main focus:ring-ring focus:ring-4" />
                 </div>
-                <form className="grid grid-cols-1 gap-7 w-full">
+                <form className="grid grid-cols-1 gap-7 w-full" onSubmit={handleCreateUser}>
                     <InputGroup label={'Enter your name'}>
                         <Input type="text" name="name" placeholder="Name" />
                     </InputGroup>
                     <InputGroup label={'Enter your role'}>
                         <Select
-                            options={[]}
-                            getOptionLabel={() => ''}
-                            changeHandler={() => {}}
+                            options={roleOptions}
+                            getOptionLabel={(option) => option.label}
+                            changeHandler={(selectedOption) => setSelectedRole(selectedOption.value)}
                             selected="-1"
                             placeholder="Select your role"
                         />
@@ -60,7 +89,7 @@ const SignUp = () => {
                     </div>
                     {orcid && (
                         <InputGroup label={'Enter your ORCID'}>
-                            <Input type="text" name="orcid" placeholder="ORCID" />
+                            <Input type="text" name="orcidNumber" placeholder="ORCID" />
                         </InputGroup>
                     )}
 
@@ -87,7 +116,7 @@ const Button = ({ variant, children }: ButtonI) => {
     return <button className={variants[variant]}>{children}</button>;
 };
 
-const InputGroup = ({ label, children }: any) => {
+export const InputGroup = ({ label, children }: any) => {
     return (
         <label className="block text-left">
             <span className="text-[#131317] block font-medium text-lg mb-2">{label}</span>
@@ -96,7 +125,7 @@ const InputGroup = ({ label, children }: any) => {
     );
 };
 
-const Input = ({ type, name, placeholder, value = '' }: any) => {
+export const Input = ({ type, name, placeholder, value = '', changeHandler }: any) => {
     return (
         <input
             type={type}
@@ -104,6 +133,7 @@ const Input = ({ type, name, placeholder, value = '' }: any) => {
             id={name}
             defaultValue={value}
             placeholder={placeholder}
+            onChange={changeHandler}
             className="w-full bg-white border border-gray-300 px-4 py-2 rounded-lg text-gray-700 disabled:opacity-50"
         />
     );

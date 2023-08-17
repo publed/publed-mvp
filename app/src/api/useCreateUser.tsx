@@ -15,8 +15,8 @@ export function useCreateUser(program: Program, provider: Provider | undefined) 
             signers: [userAccount],
         });
 
-        const user = await program.account.userState.fetch(userAccount.publicKey);
-        console.log('User:', user);
+        // const user = await program.account.userState.fetch(userAccount.publicKey);
+        // console.log('User:', user);
     }
 
     return createUser;

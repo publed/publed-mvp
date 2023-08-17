@@ -67,12 +67,13 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
     useEffect(() => {
         async function start() {
             console.log('Starting...');
+            console.log('publick key', publicKey?.toString());
 
-            if (program && publicKey) {
+            if (program && (publicKey || initialized)) {
                 try {
-                    const upk = await getUserKey(publicKey.publicKey);
-                    const user = await program.account.userState.fetch(upk);
-                    console.log(user);
+                    const upk = await getUserKey(publicKey);
+                    const user = await program.account.userState.fetch(upk.publicKey);
+                    console.log('User:', user);
 
                     if (user) {
                         setInitialized(true);
@@ -81,6 +82,7 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
                 } catch (error) {
                     console.log('No users');
                     setInitialized(false);
+                    setUser(undefined);
                     console.log(error);
                 }
             }

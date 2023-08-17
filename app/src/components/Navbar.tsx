@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { navLinks } from '../constants';
-import { close, hlogo, menu } from '../assets';
+import { useContext, useState } from 'react';
+import { loggedNavLinks, navLinks } from '../constants';
+import { close, hlogo, menu, testlogo } from '../assets';
 import { Link } from 'react-router-dom';
+import { PubledContext } from '../context/PubledContext';
 
 const Navbar = () => {
+    const { initialized } = useContext(PubledContext);
     const [toggle, setToggle] = useState<boolean>(false);
     const [active, setActive] = useState<string>('Home');
     return (
@@ -12,39 +14,59 @@ const Navbar = () => {
                 <div className="w-full flex flex-row items-center justify-between">
                     <a href="/">
                         <img
-                            src={hlogo}
+                            // src={hlogo}
+                            src={testlogo}
                             alt="publed"
-                            className="md:w-[170px] md:h-[40px] xs:w-[110px] xs:h-[30px] sm:h-[36px]"
+                            className="md:w-[150px] md:h-[40px] xs:w-[110px] xs:h-[30px] sm:h-[36px]"
                         />
                     </a>
                     <div className="flex flex-row space-x-2">
                         <ul className="list-none md:flex hidden justify-end items-center text-center">
-                            {navLinks.map((nav) => (
-                                <li
-                                    key={nav.id}
-                                    className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-typo-white active:font-bold`}
-                                >
-                                    {nav.id === 'about' ? (
-                                        <a href="https://publed-landingpage.vercel.app/about" target="__blank">
-                                            {nav.title}
-                                        </a>
-                                    ) : (
-                                        <Link to={`/${nav.id}`}>{nav.title}</Link>
-                                    )}
-                                </li>
-                            ))}
+                            {!initialized
+                                ? navLinks.map((nav) => (
+                                      <li
+                                          key={nav.id}
+                                          className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-typo-white active:font-bold`}
+                                      >
+                                          {nav.id === 'about' ? (
+                                              <a href="https://publed-landingpage.vercel.app/about" target="__blank">
+                                                  {nav.title}
+                                              </a>
+                                          ) : (
+                                              <Link to={`/${nav.id}`}>{nav.title}</Link>
+                                          )}
+                                      </li>
+                                  ))
+                                : loggedNavLinks.map((nav) => (
+                                      <li
+                                          key={nav.id}
+                                          className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-typo-white active:font-bold`}
+                                      >
+                                          {nav.id === 'about' ? (
+                                              <a href="https://publed-landingpage.vercel.app/about" target="__blank">
+                                                  {nav.title}
+                                              </a>
+                                          ) : (
+                                              <Link to={`/${nav.id}`}>{nav.title}</Link>
+                                          )}
+                                      </li>
+                                  ))}
                         </ul>
 
-                        <Link to="/signup">
-                            <button className=" rounded-full px-5 py-2 border text-sm text-typo-white font-medium transition ease-in-out delay-150 bg-primary-blue-7 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
-                                Sign Up
-                            </button>
-                        </Link>
-                        <Link to="/signin">
-                            <button className=" rounded-full px-5 py-2 border text-sm text-typo-dark-blue font-medium transition ease-in-out delay-150 bg-default-main hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
-                                Sign In
-                            </button>
-                        </Link>
+                        {!initialized ? (
+                            <>
+                                <Link to="/signup">
+                                    <button className=" rounded-full px-5 py-2 border text-sm text-typo-white font-medium transition ease-in-out delay-150 bg-primary-blue-7 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
+                                        Sign Up
+                                    </button>
+                                </Link>
+                                <Link to="/signin">
+                                    <button className=" rounded-full px-5 py-2 border text-sm text-typo-dark-blue font-medium transition ease-in-out delay-150 bg-default-main hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
+                                        Sign In
+                                    </button>
+                                </Link>
+                            </>
+                        ) : null}
 
                         <div className="md:hidden flex justify-end items-center">
                             <img

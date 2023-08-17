@@ -2,7 +2,7 @@ import { LinkedinLogo, TwitterLogo, discord, github, h2logo, twitter } from '../
 
 const Footer = () => {
     return (
-        <section id="Footer" className={`bg-blue-1 flex flex-row justify-between`}>
+        <section id="Footer" className={`bg-primary-blue-1 flex flex-row justify-between`}>
             {/* Content */}
             <div className="flex flex-col px-10 py-10 gap-20 w-full">
                 {/* Nav */}

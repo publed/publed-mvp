@@ -1,11 +1,11 @@
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import React from 'react';
 
 const SignIn = () => {
     return (
-        <div>
-            SignIn
-            <WalletMultiButton />
+        <div className="min-h-screen flex justify-center items-center container mx-auto">
+            {' '}
+            <p className="text-black">SignIn</p>
+            <WalletMultiButton className="" />
         </div>
     );
 };

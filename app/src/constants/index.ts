@@ -3,6 +3,13 @@ export const navLinks = [
     { id: 'home', title: 'Home' },
     { id: 'about', title: 'About' },
 ];
+export const loggedNavLinks = [
+    { id: 'home', title: 'Home' },
+    { id: 'about', title: 'About' },
+    { id: 'explore', title: 'Explore' },
+    { id: 'subscriptions', title: 'Subscriptions' },
+    { id: 'upload', title: 'Submit RO' },
+];
 
 export const slogans = [
     { id: 'slogan2', title: 'Bringing Science from Web0 to' },
