@@ -13,7 +13,7 @@ const SignIn = () => {
                     </p>
                     <h2 className="text-xl leading-normal font-medium mb-5">Connect your wallet</h2>
                 </div>
-                <div className="flex flex-col space-y-3">
+                {/* <div className="flex flex-col space-y-3">
                     <WalletRadio
                         icon={<div className="h-10 w-10 bg-purple-500 rounded-full" />}
                         label="Phantom"
@@ -26,7 +26,8 @@ const SignIn = () => {
                         id="backpack"
                         name="wallet"
                     />
-                </div>
+                </div> */}
+                <WalletMultiButton className="rounded-full px-5 py-2 text-sm text-typo-dark-blue bg-button-main border border-button-blue hover:bg-button-hover focus:bg-button-main focus:ring-ring focus:ring-4" />
             </div>
         </div>
     );

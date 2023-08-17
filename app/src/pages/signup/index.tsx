@@ -49,9 +49,10 @@ const SignUp = () => {
                         Choose a wallet to connect. If you don't have a wallet, you can select a provider and create
                         one. <a className="text-typo-dark-blue decoration-typo-dark-blue underline">Learn More</a>
                     </p>
-                    <Button variant="small" onClick={() => setOpen(true)}>
+                    {/* <Button variant="small" onClick={() => setOpen(true)}>
                         Connect Wallet
-                    </Button>
+                    </Button> */}
+                    <WalletMultiButton className="rounded-full px-5 py-2 text-sm text-typo-dark-blue bg-button-main border border-button-blue hover:bg-button-hover focus:bg-button-main focus:ring-ring focus:ring-4" />
                     <Modal showModal={open} setShowModal={setOpen}>
                         <div className="text-typo-black">
                             <h2 className="text-xl text-center font-medium mb-7">Connect your wallet</h2>
