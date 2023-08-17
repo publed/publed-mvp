@@ -29,6 +29,7 @@
     "dependencies": {
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
+        "@metaplex-foundation/js": "^0.19.4",
         "@mui/icons-material": "^5.14.0",
         "@mui/material": "^5.14.0",
         "@solana/wallet-adapter-base": "",
@@ -39,6 +40,7 @@
         "browserify-zlib": "^0.2.0",
         "buffer": "^6.0.3",
         "https-browserify": "^1.0.0",
+        "path-browserify": "^1.0.1",
         "react": "^18.2.0",
         "react-app-rewired": "^2.2.1",
         "react-dom": "^18.2.0",

@@ -26,7 +26,7 @@ const Navbar = () => {
                                 ? navLinks.map((nav) => (
                                       <li
                                           key={nav.id}
-                                          className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-typo-white active:font-bold`}
+                                          className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-default-0 active:font-bold`}
                                       >
                                           {nav.id === 'about' ? (
                                               <a href="https://publed-landingpage.vercel.app/about" target="__blank">
@@ -40,7 +40,7 @@ const Navbar = () => {
                                 : loggedNavLinks.map((nav) => (
                                       <li
                                           key={nav.id}
-                                          className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-typo-white active:font-bold`}
+                                          className={`font-notosans font-light cursor-pointer text-[16px] mr-[32px] text-default-0 active:font-bold`}
                                       >
                                           {nav.id === 'about' ? (
                                               <a href="https://publed-landingpage.vercel.app/about" target="__blank">
@@ -56,12 +56,12 @@ const Navbar = () => {
                         {!initialized ? (
                             <>
                                 <Link to="/signup">
-                                    <button className=" rounded-full px-5 py-2 border text-sm text-typo-white font-medium transition ease-in-out delay-150 bg-primary-blue-7 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
+                                    <button className=" rounded-full px-5 py-2 border text-sm text-default-0 font-medium transition ease-in-out delay-150 bg-dark-blue-60 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
                                         Sign Up
                                     </button>
                                 </Link>
                                 <Link to="/signin">
-                                    <button className=" rounded-full px-5 py-2 border text-sm text-typo-dark-blue font-medium transition ease-in-out delay-150 bg-default-main hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
+                                    <button className=" rounded-full px-5 py-2 border text-sm text-default-0 font-medium transition ease-in-out delay-150 bg-dark-blue-60 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
                                         Sign In
                                     </button>
                                 </Link>
@@ -87,7 +87,7 @@ const Navbar = () => {
                         {navLinks.map((nav, index) => (
                             <li
                                 key={nav.id}
-                                className={`font-notosans font-normal text-typo-white cursor-pointer text-[16px] leading-8 ${
+                                className={`font-notosans font-normal text-default-0 cursor-pointer text-[16px] leading-8 ${
                                     active === nav.title ? 'font-semibold' : 'font-normal'
                                 } ${index === navLinks.length - 1 ? 'mb-0' : 'mb-4'}`}
                                 onClick={() => setActive(nav.title)}

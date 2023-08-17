@@ -27,6 +27,21 @@ export const pages = [
         path: '/explore',
     },
     {
+        component: lazy(() => import('../pages/research')),
+        title: 'Research',
+        path: '/research',
+    },
+    {
+        component: lazy(() => import('../pages/review')),
+        title: 'Review',
+        path: '/review',
+    },
+    {
+        component: lazy(() => import('../pages/upload')),
+        title: 'Upload',
+        path: '/upload',
+    },
+    {
         component: lazy(() => import('../pages/contact')),
         title: 'Contact Us',
         path: '/contact',

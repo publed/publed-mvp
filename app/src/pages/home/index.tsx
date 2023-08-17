@@ -2,8 +2,8 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Connection, LAMPORTS_PER_SOL, clusterApiUrl } from '@solana/web3.js';
 import { useEffect } from 'react';
 import FormComponent from '../../components/Form';
-import { Input, InputGroup } from '../signup';
-import { actions } from '@metaplex/js';
+import Input from '../../components/Input';
+import { InputGroup } from '../signup';
 import { Metaplex, bundlrStorage, keypairIdentity, walletAdapterIdentity } from '@metaplex-foundation/js';
 
 const Home = () => {

@@ -2,7 +2,7 @@ import { LinkedinLogo, TwitterLogo, discord, github, h2logo, twitter } from '../
 
 const Footer = () => {
     return (
-        <section id="Footer" className={`bg-primary-blue-1 flex flex-row justify-between`}>
+        <section id="Footer" className={`bg-regular-blue-20 flex flex-row justify-between`}>
             {/* Content */}
             <div className="flex flex-col px-10 py-10 gap-20 w-full">
                 {/* Nav */}
@@ -23,7 +23,7 @@ const Footer = () => {
                         </div>
                     </div>
                     {/* navlinks */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-20 font-notosans text-[16px] font-light text-typo-black">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-20 font-notosans text-[16px] font-light text-default-100">
                         <a href="/about">About Us</a>
                         <a href="#team">Team</a>
                         <a href="#">Docs</a>
