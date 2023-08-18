@@ -28,7 +28,7 @@ export const Input = ({ type, name, placeholder, value = '', changeHandler }: In
             defaultValue={value}
             placeholder={placeholder}
             onChange={changeHandler}
-            className="w-full px-[10px] py-[14px] rounded-lg border border-default-30 bg-white text-default-100 focus:border-regular-blue-30 form-ring disabled:opacity-50"
+            className="w-full py-[10px] px-[14px] rounded-lg border border-default-30 bg-white text-default-100 focus:border-regular-blue-30 form-ring disabled:opacity-50"
         />
     );
 };
