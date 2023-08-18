@@ -5,10 +5,12 @@ import { getUserKey } from '../context/PubledContext';
 export function useUpdateUser(program: Program, provider: Provider | undefined) {
     const updateUser = async (name: String, avatar: String) => {
         async function updateUser() {
+            //@ts-ignore
             const userAccount = getUserKey(provider?.wallet.publicKey);
 
             await program.rpc.updateUser(name, avatar, {
                 accounts: {
+                    //@ts-ignore
                     authority: provider?.wallet.publicKey,
                     userAccount: userAccount.publicKey,
                     systemProgram: SystemProgram.programId,

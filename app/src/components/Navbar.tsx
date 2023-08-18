@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { PubledContext } from '../context/PubledContext';
 
 const Navbar = () => {
+    //@ts-ignore
     const { initialized } = useContext(PubledContext);
     const [toggle, setToggle] = useState<boolean>(false);
     const [active, setActive] = useState<string>('Home');

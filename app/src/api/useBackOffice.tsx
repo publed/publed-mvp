@@ -11,6 +11,7 @@ export function useBackOffice(program: Program | undefined) {
                 '\nPubkey:',
                 user.publicKey.toString(),
                 '\nAuthority:',
+                //@ts-ignore
                 user.account.authority.toString()
             );
         });

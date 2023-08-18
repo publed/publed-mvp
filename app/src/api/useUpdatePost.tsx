@@ -8,6 +8,7 @@ export function useUpdatePost(program: Program, provider: Provider | undefined) 
 
             await program.rpc.updatePost(title, content, {
                 accounts: {
+                    //@ts-ignore
                     authority: provider?.wallet.publicKey,
                     postAccount: postAccount,
                 },

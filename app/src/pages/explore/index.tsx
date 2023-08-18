@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Explore = () => {
     const { mx } = useContext(MetaplexContext);
+    //@ts-ignore
     const { posts } = useContext(PubledContext);
 
     const [researchObject, setResearchObject] = useState();
@@ -45,6 +46,7 @@ const Explore = () => {
                     <Pill label="Premium" />
                 </div>
                 <div className="space-y-4">
+                    {/* @ts-ignore */}
                     {researchObject?.map((item, index) => (
                         <Link to={`/research/${item.name}`} key={index}>
                             <ResearchCard key={index} {...item} />

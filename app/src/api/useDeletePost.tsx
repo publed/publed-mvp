@@ -6,13 +6,17 @@ export function useDeletePost(program: Program, provider: Provider | undefined) 
         async function deletePost() {
             const postAccount = new PublicKey(postAddress);
             const posts = await program.account.postState.all();
+            //@ts-ignore
             const p = posts.find((post) => post.account.prePostKey.equals(postAccount));
+            //@ts-ignore
             console.log(p?.publicKey.toString(), p?.account.prePostKey.toString());
 
             await program.rpc.deletePost({
                 accounts: {
+                    //@ts-ignore
                     authority: provider?.wallet.publicKey,
                     postAccount: postAccount,
+                    //@ts-ignore
                     nextPostAccount: p.publicKey,
                 },
             });

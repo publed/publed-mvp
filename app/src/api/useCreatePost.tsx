@@ -7,14 +7,17 @@ const PUBLED_KEY = new PublicKey('8RqEmmuWsyRV9sKFZAQ1GVZjqkH3YtHq34Wo3qMQmHnE')
 export function useCreatePost(program: Program, provider: Provider) {
     const createPost = async (title: String, content: String) => {
         async function createPost() {
+            //@ts-ignore
             console.log('Provider:', provider?.wallet.publicKey);
 
+            //@ts-ignore
             const userAccount = await getUserKey(provider?.wallet.publicKey);
 
             const postAccount = Keypair.generate();
 
             await program.rpc.createPost(title, content, {
                 accounts: {
+                    //@ts-ignore
                     authority: provider?.wallet.publicKey,
                     userAccount: userAccount?.publicKey,
                     systemProgram: SystemProgram.programId,

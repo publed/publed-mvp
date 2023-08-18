@@ -13,8 +13,6 @@ import {
     toMetaplexFileFromBrowser,
     walletAdapterIdentity,
 } from '@metaplex-foundation/js';
-import { PubledContext } from '../../context/PubledContext';
-import { MetaplexContext } from '../../context/MetaplexContext';
 import base58, * as bs58 from 'bs58';
 
 const Home = () => {
@@ -55,16 +53,19 @@ const Home = () => {
         getBalance();
     }, [wallet]);
 
+    //@ts-ignore
     const handleImageChange = async (event) => {
         const browserFile: File = event.target.files[0];
         const file: MetaplexFile = await toMetaplexFileFromBrowser(browserFile);
         setImageFile(file);
     };
+    //@ts-ignore
     const handlePDFChange = async (event) => {
         const browserFile: File = event.target.files[0];
         const file: MetaplexFile = await toMetaplexFileFromBrowser(browserFile);
         setPDF(file);
     };
+    //@ts-ignore
     const handleVideoChange = async (event) => {
         const browserFile: File = event.target.files[0];
         const file: MetaplexFile = await toMetaplexFileFromBrowser(browserFile);
@@ -103,6 +104,7 @@ const Home = () => {
             properties: {
                 creators: [
                     {
+                        //@ts-ignore
                         address: wallet?.publicKey.toString(),
                         share: 100,
                     },

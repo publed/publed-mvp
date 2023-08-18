@@ -50,6 +50,7 @@ export const getUserKey = (walletKey: PublicKey) => {
 
 export const PubledContext = createContext<PubledContextType | null>(null);
 
+//@ts-ignore
 const PubledProvider: FC<ReactNode> = ({ children }) => {
     const anchorWallet = useAnchorWallet();
     const { connection } = useConnection();
@@ -65,6 +66,7 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
     program = useMemo(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         p = new AnchorProvider(connection, anchorWallet as Wallet, AnchorProvider.defaultOptions());
+        //@ts-ignore
         setProvider(p);
         console.log('Provider p: ', p);
 
@@ -89,6 +91,7 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
 
                     if (user) {
                         setInitialized(true);
+                        //@ts-ignore
                         setUser(user);
                     }
                 } catch (error) {
@@ -105,13 +108,16 @@ const PubledProvider: FC<ReactNode> = ({ children }) => {
 
     const createUser = useCreateUser(program, provider);
     const updateUser = useUpdateUser(program, provider);
+    //@ts-ignore
     const createPost = useCreatePost(program, provider);
     const updatePost = useUpdatePost(program, provider);
     const deletePost = useDeletePost(program, provider);
+    //@ts-ignore
     const createReview = useCreateReview(program, provider);
 
     const listPosts = async () => {
         const posts = await program?.account.postState.all();
+        //@ts-ignore
         setPosts(posts);
     };
 

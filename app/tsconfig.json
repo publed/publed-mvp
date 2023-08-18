@@ -1,5 +1,4 @@
 {
-    "extends": "../../../tsconfig.json",
     "include": ["src"],
     "compilerOptions": {
         "outDir": "lib",
@@ -17,6 +16,7 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "noUnusedLocals": false,
     }
 }

@@ -30,9 +30,11 @@ const BackOffice = () => {
     useEffect(() => {
         const fetchData = async () => {
             const publed = await program?.account.publedState.all();
+            //@ts-ignore
             setPubledAccounts(publed);
 
             const users = await program?.account.userState.all();
+            //@ts-ignore
             setUserAccounts(users);
             const reviews = await program?.account.reviewState.all();
             console.log(reviews);
@@ -43,6 +45,7 @@ const BackOffice = () => {
                 // Main Publed State
                 new PublicKey('8RqEmmuWsyRV9sKFZAQ1GVZjqkH3YtHq34Wo3qMQmHnE')
             );
+            //@ts-ignore
             const latestPostId = p?.currentPostKey.toString();
             console.log(latestPostId);
 
@@ -50,6 +53,7 @@ const BackOffice = () => {
 
             let nextPostId = latestPostId;
             while (!!nextPostId) {
+                //@ts-ignore
                 const post = await getPostById(nextPostId, program);
                 if (!post) {
                     break;
@@ -59,6 +63,7 @@ const BackOffice = () => {
                 nextPostId = post.prePostId;
             }
             console.log(ps);
+            //@ts-ignore
             setPostAccounts(ps);
         };
 

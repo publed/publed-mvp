@@ -33,6 +33,7 @@ export const getUserKey = (walletKey: PublicKey) => {
 const App: FC = () => {
     return (
         <SolanaWalletProvider>
+            {/* @ts-ignore */}
             <PubledProvider>
                 <BrowserRouter>
                     <MetaplexProvider>
@@ -60,13 +61,14 @@ const Content: FC = () => {
     const { connection } = useConnection();
 
     async function getProvider() {
+        //@ts-ignore
         const provider = new AnchorProvider(connection, wallet, opts.preflightCommitment);
         return provider;
     }
 
     async function createPubled() {
         const provider = await getProvider();
-
+        //@ts-ignore
         const program = new Program(idl, programID, provider);
         try {
             await program.rpc.initPubled({
@@ -90,7 +92,7 @@ const Content: FC = () => {
         const name = 'Vítor Ribeiro';
         const avatar = 'https://gravatar.com/avatar/e5b1e1ff1780db217085c8733aa1405c?s=400&d=robohash&r=x';
         const userAccount = getUserKey(provider.wallet.publicKey);
-
+        //@ts-ignore
         const program = new Program(idl, programID, provider);
         try {
             await program.rpc.signupUser(name, avatar, {

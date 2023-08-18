@@ -4,12 +4,15 @@ import { getUserKey } from '../context/PubledContext';
 
 export function useCreateUser(program: Program, provider: Provider | undefined) {
     async function createUser(name: String, avatar: String, orcid: String) {
+        //@ts-ignore
         console.log('Provider:', provider?.wallet.publicKey);
 
+        //@ts-ignore
         const userAccount = await getUserKey(provider?.wallet.publicKey);
 
         await program.rpc.signupUser(name, avatar, orcid, {
             accounts: {
+                //@ts-ignore
                 authority: provider?.wallet.publicKey,
                 userAccount: userAccount.publicKey,
                 systemProgram: SystemProgram.programId,

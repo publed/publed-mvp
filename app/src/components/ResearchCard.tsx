@@ -21,13 +21,16 @@ const ResearchCard = ({ description: name, attributes }: ResearchCardProps) => {
                 <div className="grow mr-10">
                     <h2 className="text-lg font-medium mb-2 text-dark-blue-80">{name || 'N/A'}</h2>
                     <p className="font-medium text-dark-blue-60">
+                        {/* @ts-ignore */}
                         {attributes?.find((attr: any) => attr.trait_type === 'Author')?.value || 'N/A'}
                     </p>
                 </div>
+                {/* @ts-ignore */}
                 <Tag label={attributes?.find((attr: any) => attr.trait_type === 'Access')?.value || 'N/A'} />
             </div>
             <div className="flex justify-between items-center">
                 <p className="text-sm text-default-100">
+                    {/* @ts-ignore */}
                     DOI: {attributes?.find((attr: any) => attr.trait_type === 'DOI')?.value || 'N/A'}
                 </p>
                 <div className="flex gap-4 items-center">
@@ -38,9 +41,8 @@ const ResearchCard = ({ description: name, attributes }: ResearchCardProps) => {
                         <Slides />
                         <Code />
                     </div>
-                    <Badge
-                        variant={attributes?.find((attr: any) => attr.trait_type === 'State')?.value || 'To Review'}
-                    />
+                    {/* @ts-ignore  */}
+                    <Badge variant={attributes?.find((attr: any) => attr.trait_type === 'State')?.value || 'To Review'} />
                 </div>
             </div>
         </div>

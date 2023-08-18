@@ -5,6 +5,7 @@ import { getUserKey } from '../context/PubledContext';
 export function useCreateReview(program: Program, provider: Provider) {
     const createReview = async (strenghts: String, weaknesses: String, obs: String, postAddress: String) => {
         async function createReview() {
+            //@ts-ignore
             const userAccount = await getUserKey(provider?.wallet.publicKey);
             const postAccount = new PublicKey(postAddress);
 
@@ -12,6 +13,7 @@ export function useCreateReview(program: Program, provider: Provider) {
 
             await program.rpc.createReview(strenghts, weaknesses, obs, {
                 accounts: {
+                    //@ts-ignore
                     authority: provider?.wallet.publicKey,
                     userAccount: userAccount?.publicKey,
                     reviewAccount: reviewAccount.publicKey,

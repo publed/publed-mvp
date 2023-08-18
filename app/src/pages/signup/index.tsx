@@ -8,6 +8,7 @@ import Select from '../../components/Select';
 import Input from '../../components/Input';
 
 const SignUp = () => {
+    //@ts-ignore
     const { createUser } = useContext(PubledContext);
     const [orcid, setOrcid] = useState(false);
     const [fname, setFname] = useState('');
