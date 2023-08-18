@@ -39,8 +39,6 @@ export type PubledContextType = {
 };
 
 export const getUserKey = (walletKey: PublicKey) => {
-    console.log('Wallet Key:', walletKey);
-
     const userAccount = Keypair.fromSeed(
         new TextEncoder().encode(`${PROGRAM_KEY.toString().slice(0, 15)}__${walletKey.toString().slice(0, 15)}`)
     );

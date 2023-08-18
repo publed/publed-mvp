@@ -5,9 +5,30 @@ import Video from '../../icons/Video';
 import Slides from '../../icons/Slides';
 import Code from '../../icons/Code';
 import { useParams } from 'react-router-dom';
+import { MetaplexContext } from '../../context/MetaplexContext';
+import { useContext, useEffect, useState } from 'react';
+import { PublicKey } from '@solana/web3.js';
+import { JsonMetadata } from '@metaplex-foundation/js';
 
 const Research = () => {
-    const { name } = useParams();
+    const { mx } = useContext(MetaplexContext);
+    const { address } = useParams();
+    const [researchObject, setResearchObject] = useState<JsonMetadata | null>(null);
+
+    useEffect(() => {
+        const fetchROData = async () => {
+            console.log('hello: ', address);
+
+            if (address) {
+                const res = await mx.nfts().findByMint({ mintAddress: new PublicKey(address) });
+                console.log(res);
+
+                setResearchObject(res.json);
+            }
+        };
+        fetchROData();
+    }, []);
+
     return (
         <div className="min-h-screen w-full py-20 bg-background-grey">
             <div className="container mx-auto mt-10">
@@ -35,9 +56,7 @@ const Research = () => {
                 </div>
                 <div className="flex justify-between gap-16">
                     <div className="max-w-lg">
-                        <h2 className="text-2xl font-semibold mb-2 text-dark-blue-80">
-                            CertiK: Building Fully Trustworthy Smart Contracts and Blockchain Ecosystems - {name}
-                        </h2>
+                        <h2 className="text-2xl font-semibold mb-2 text-dark-blue-80">{researchObject?.description}</h2>
                         <p className="font-medium text-lg text-dark-blue-60 mb-4">CertiK</p>
                         <p className="text-sm text-default-100 mb-8">
                             <strong>DOI</strong> N/A

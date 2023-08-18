@@ -24,7 +24,8 @@ const Explore = () => {
 
         console.log(filteredContents);
         const fetchNFTData = async (mintAddress: string) => {
-            return (await mx.nfts().findByMint({ mintAddress: new PublicKey(mintAddress) })).json;
+            const res = await mx.nfts().findByMint({ mintAddress: new PublicKey(mintAddress) });
+            return { json: res.json, address: res.address.toString() };
         };
 
         const nftDataArray = await Promise.all(filteredContents.map(fetchNFTData));
@@ -48,8 +49,8 @@ const Explore = () => {
                 <div className="space-y-4">
                     {/* @ts-ignore */}
                     {researchObject?.map((item, index) => (
-                        <Link to={`/research/${item.name}`} key={index}>
-                            <ResearchCard key={index} {...item} />
+                        <Link to={`/research/${item.address}`} key={index}>
+                            <ResearchCard key={index} {...item.json} />
                         </Link>
                     ))}
                 </div>
