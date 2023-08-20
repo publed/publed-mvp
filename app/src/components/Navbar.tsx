@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { loggedNavLinks, navLinks } from '../constants';
 import { close, hlogo, menu, search, testlogo } from '../assets';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PubledContext } from '../context/PubledContext';
 
 const Navbar = () => {
@@ -9,6 +9,7 @@ const Navbar = () => {
     const { initialized } = useContext(PubledContext);
     const [toggle, setToggle] = useState<boolean>(false);
     const [active, setActive] = useState<string>('Home');
+    const navigate = useNavigate();
     return (
         <div>
             <nav className="w-full flex flex-col py-4 items-center">
@@ -21,15 +22,15 @@ const Navbar = () => {
                             className="md:w-[150px] md:h-[40px] xs:w-[110px] xs:h-[30px] sm:h-[36px]"
                         />
                     </a>
-                    <form className="flex items-center gap-40 bg-white px-4 py-2 rounded-[100px] w-[480px] justify-between">
+                    <form className="flex items-center bg-white px-4 py-2 rounded-[100px] w-[480px] justify-center">
                         <input
                             name="search"
                             type="search"
                             className="text-default-40 text-base bg-white border-white w-full"
                             placeholder="Search"
                         ></input>
-                        <button>
-                            <img src={search} alt="search" />
+                        <button onClick={() => navigate('/explore')}>
+                            <img src={search} alt="search" className="w-8" />
                         </button>
                     </form>
                     <div className="flex flex-row space-x-2">

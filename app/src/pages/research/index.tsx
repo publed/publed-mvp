@@ -4,7 +4,7 @@ import Data from '../../icons/Data';
 import Video from '../../icons/Video';
 import Slides from '../../icons/Slides';
 import Code from '../../icons/Code';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MetaplexContext } from '../../context/MetaplexContext';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { PublicKey } from '@solana/web3.js';
@@ -16,12 +16,15 @@ import ReactPlayer from 'react-player';
 
 // Import the styles
 import '@react-pdf-viewer/core/lib/styles/index.css';
+import { ro, website } from '../../assets';
+import Iframe from 'react-iframe';
 
 const Research = () => {
     const { mx } = useContext(MetaplexContext);
     const { address } = useParams();
     const [researchObject, setResearchObject] = useState<JsonMetadata | null>(null);
     const [paper, setPaper] = useState<string>('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchROData = async () => {
@@ -38,13 +41,15 @@ const Research = () => {
         fetchROData();
     }, []);
 
-    console.log('RO: ', researchObject?.properties?.files);
+    console.log('RO: ', researchObject);
 
     return (
         <div className="min-h-screen w-full py-20 bg-background-grey">
             <div className="container mx-auto mt-10">
                 <div className="flex justify-between items-center mb-6">
-                    <p className="text-default-50 text-xl font-medium">&lt; Back</p>
+                    <button onClick={() => navigate(-1)}>
+                        <p className="text-default-50 text-xl font-medium hover:font-semibold">&lt; Back</p>
+                    </button>
                 </div>
                 <div className="flex justify-between gap-16">
                     <div className="max-w-lg">
@@ -60,6 +65,14 @@ const Research = () => {
                             {researchObject?.attributes?.find((attr: any) => attr.trait_type === 'Abstract')?.value ||
                                 'N/A'}
                         </p>
+                        <div className="flex flex-row mt-4 items-center">
+                            <a href={`https://solscan.io/token/${address}?cluster=devnet`} target="__blank">
+                                <img src={ro} alt="ro" className="h-8 w-8" />
+                            </a>
+                            <a href={researchObject?.external_url} target="__blank">
+                                <img src={website} alt="website" className="h-7 w-7" />
+                            </a>
+                        </div>
                     </div>
                     <Tabsx
                         chosen="docs"
@@ -91,7 +104,8 @@ const Research = () => {
                                         <Slides className="" /> {selected === 'slides' && 'Slides'}
                                     </NavItem>
                                 ) : null}
-                                {researchObject?.properties?.files?.find((attr: any) => attr.type === 'code') ? (
+                                {/* {researchObject?.properties?.files?.find((attr: any) => attr.type === 'code') ? ( */}
+                                {researchObject?.name === 'BAO #RO' ? (
                                     <NavItem id="code">
                                         <Code className="" /> {selected === 'code' && 'Code'}
                                     </NavItem>
@@ -101,7 +115,7 @@ const Research = () => {
                         renderPanels={(selected: any) => (
                             <div className="w-full mb-16">
                                 <Panel id="docs">
-                                    <div className="w-[770px] h-[448px] rounded-sm">
+                                    <div className="w-[770px] h-[460px]  shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
                                         {researchObject?.properties?.files?.find(
                                             (file) => file.type === 'application/pdf'
                                         ) && (
@@ -118,10 +132,10 @@ const Research = () => {
                                     </div>
                                 </Panel>
                                 <Panel id="data">
-                                    <div className="bg-gray-400 w-[770px] h-[448px]"></div>
+                                    <div className="bg-gray-400 w-[770px] h-[460px]"></div>
                                 </Panel>
                                 <Panel id="video">
-                                    <div className="bg-white w-[770px] h-[448px] flex justify-center items-center">
+                                    <div className="bg-white w-[770px] h-[460px] flex justify-center items-center shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
                                         <ReactPlayer
                                             url={
                                                 researchObject?.properties?.files?.find(
@@ -133,11 +147,12 @@ const Research = () => {
                                             loop={true}
                                             muted={true}
                                             playsinline={true}
+                                            style={{ width: '100%', height: '100%' }}
                                         />
                                     </div>
                                 </Panel>
                                 <Panel id="slides">
-                                    <div className="w-[770px] h-[448px] rounded-sm">
+                                    <div className="w-[770px] h-[460px] rounded-sm shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
                                         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
                                             <Viewer
                                                 fileUrl={
@@ -150,7 +165,17 @@ const Research = () => {
                                     </div>
                                 </Panel>
                                 <Panel id="code">
-                                    <div className="bg-gray-400 w-[670px] h-[448px]"></div>
+                                    <div className="w-[770px] h-[460px] rounded-sm shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+                                        <Iframe
+                                            url="https://codesandbox.io/embed/github/bao-project/bao-hypervisor/tree/main/?fontsize=14&hidenavigation=1&theme=light&view=editor"
+                                            width="770px"
+                                            height="460px"
+                                            id=""
+                                            className=""
+                                            display="block"
+                                            position="relative"
+                                        />
+                                    </div>
                                 </Panel>
                             </div>
                         )}

@@ -36,9 +36,13 @@ import droadmap from './svg/droadmap.svg';
 import howItWorksStatic from './how_it_works_7.png';
 import testlogo from './7227ce38-83ac-4556-9eee-5915c67b2623.png';
 import search from './svg/search.svg';
+import ro from './svg/noun-nft-4545382.svg';
+import website from './svg/website.svg';
 
 export {
     testlogo,
+    ro,
+    website,
     search,
     close,
     menu,

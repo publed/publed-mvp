@@ -11,27 +11,29 @@ const Explore = () => {
     //@ts-ignore
     const { posts } = useContext(PubledContext);
 
-    const [researchObject, setResearchObject] = useState();
+    const [researchObject, setResearchObject] = useState<any[]>();
     console.log(researchObject);
 
     const wallet = useWallet();
     mx.use(walletAdapterIdentity(wallet));
 
     const postsList = async () => {
-        const filteredContents = posts
-            .filter((post: any) => post.account.content.length > 12)
-            .map((post: any) => post.account.content);
+        if (posts) {
+            const filteredContents = posts
+                .filter((post: any) => post.account.content.length > 12)
+                .map((post: any) => post.account.content);
 
-        console.log(filteredContents);
-        const fetchNFTData = async (mintAddress: string) => {
-            const res = await mx.nfts().findByMint({ mintAddress: new PublicKey(mintAddress) });
-            return { json: res.json, address: res.address.toString() };
-        };
+            console.log(filteredContents);
+            const fetchNFTData = async (mintAddress: string) => {
+                const res = await mx.nfts().findByMint({ mintAddress: new PublicKey(mintAddress) });
+                return { json: res.json, address: res.address.toString() };
+            };
 
-        const nftDataArray = await Promise.all(filteredContents.map(fetchNFTData));
+            const nftDataArray = await Promise.all(filteredContents.map(fetchNFTData));
 
-        setResearchObject(nftDataArray);
-        console.log(nftDataArray);
+            setResearchObject(nftDataArray);
+            console.log(nftDataArray);
+        }
     };
 
     useEffect(() => {
@@ -49,9 +51,11 @@ const Explore = () => {
                 <div className="space-y-4">
                     {/* @ts-ignore */}
                     {researchObject?.map((item, index) => (
-                        <Link to={`/research/${item.address}`} key={index}>
-                            <ResearchCard key={index} {...item.json} />
-                        </Link>
+                        <div className="space-y-4">
+                            <Link to={`/research/${item.address}`} key={index}>
+                                <ResearchCard key={index} {...item.json} />
+                            </Link>
+                        </div>
                     ))}
                 </div>
             </div>
