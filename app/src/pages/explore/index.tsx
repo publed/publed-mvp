@@ -161,6 +161,13 @@ const data = [
         doi: '10.1109/RTAS.2015.7108454',
         status: 'success',
     },
+    {
+        title: 'Towards Secure Layer2 Blockchain Solution using TEEs',
+        author: 'Vítor Ribeiro, David Cerdeira, Sandro Pinto',
+        tag: 'Free',
+        doi: 'N/A',
+        status: 'pending',
+    },
 ];
 
 export default Explore;

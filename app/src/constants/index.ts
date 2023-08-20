@@ -8,8 +8,8 @@ export const loggedNavLinks = [
     { id: 'about', title: 'About' },
     { id: 'explore', title: 'Explore' },
     { id: 'subscriptions', title: 'Subscriptions' },
-    { id: 'upload', title: 'Submit RO' },
-    { id: 'backoffice', title: 'Back Office' },
+    { id: 'upload', title: 'Submit' },
+    // { id: 'backoffice', title: 'Back Office' },
 ];
 
 export const slogans = [
