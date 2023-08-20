@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { loggedNavLinks, navLinks } from '../constants';
-import { close, hlogo, menu, testlogo } from '../assets';
+import { close, hlogo, menu, search, testlogo } from '../assets';
 import { Link } from 'react-router-dom';
 import { PubledContext } from '../context/PubledContext';
 
@@ -21,6 +21,17 @@ const Navbar = () => {
                             className="md:w-[150px] md:h-[40px] xs:w-[110px] xs:h-[30px] sm:h-[36px]"
                         />
                     </a>
+                    <form className="flex items-center gap-40 bg-white px-4 py-2 rounded-[100px] w-[480px] justify-between">
+                        <input
+                            name="search"
+                            type="search"
+                            className="text-default-40 text-base bg-white border-white w-full"
+                            placeholder="Search"
+                        ></input>
+                        <button>
+                            <img src={search} alt="search" />
+                        </button>
+                    </form>
                     <div className="flex flex-row space-x-2">
                         <ul className="list-none md:flex hidden justify-end items-center text-center">
                             {!initialized

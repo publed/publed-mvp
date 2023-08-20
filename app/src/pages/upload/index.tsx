@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Select from '../../components/Select';
 // icons
 import Document from '../../icons/Document';
@@ -9,8 +9,22 @@ import Code from '../../icons/Code';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Textarea from '../../components/Textarea';
+import { MetaplexContext } from '../../context/MetaplexContext';
 
-const NFTmint = async (title, authorName, date, DOI, abstract, state, access, pdf, image, video) => {
+const NFTmint = async (
+    title: string,
+    authorName: string,
+    date: string,
+    DOI: string,
+    abstract: string,
+    state: string,
+    access: string,
+    pdf: string,
+    image: string,
+    video: string
+) => {
+    const { mx } = useContext(MetaplexContext);
+
     const { uri } = await mx.nfts().uploadMetadata({
         name: 'BAO #RO',
         symbol: 'BAO',
@@ -222,19 +236,19 @@ const Upload = () => {
                             <Panel id="code">
                                 <FileUpload name="code" onChange={handleFileChange} />
                             </Panel>
-                            <div className="">
+                            {/* <div className="">
                                 {form?.docs && (
-                                    <FileEntry icon={<Document className="w-8 h-8" />} name={form.docs.name} />
+                                    <FileEntry icon={<Document className="w-8 h-8" />} name={form.docs?.name} />
                                 )}
-                                {form?.data && <FileEntry icon={<Data className="w-8 h-8" />} name={form.data.name} />}
+                                {form?.data && <FileEntry icon={<Data className="w-8 h-8" />} name={form.data?.name} />}
                                 {form?.video && (
-                                    <FileEntry icon={<Video className="w-8 h-8" />} name={form.video.name} />
+                                    <FileEntry icon={<Video className="w-8 h-8" />} name={form.video?.name} />
                                 )}
                                 {form?.slides && (
-                                    <FileEntry icon={<Slides className="w-8 h-8" />} name={form.slides.name} />
+                                    <FileEntry icon={<Slides className="w-8 h-8" />} name={form.slides?.name} />
                                 )}
-                                {form?.code && <FileEntry icon={<Code className="w-8 h-8" />} name={form.code.name} />}
-                            </div>
+                                {form?.code && <FileEntry icon={<Code className="w-8 h-8" />} name={form.code?.name} />}
+                            </div> */}
                         </div>
                     )}
                 />

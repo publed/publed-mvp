@@ -35,9 +35,11 @@ import troadmap from './svg/troadmap.svg';
 import droadmap from './svg/droadmap.svg';
 import howItWorksStatic from './how_it_works_7.png';
 import testlogo from './7227ce38-83ac-4556-9eee-5915c67b2623.png';
+import search from './svg/search.svg';
 
 export {
     testlogo,
+    search,
     close,
     menu,
     hlogo,

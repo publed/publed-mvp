@@ -83,66 +83,77 @@ const Home = () => {
         // const imgMetaplexFile = toMetaplexFileFromBrowser(imageFile, 'fileName');
         // const uri = await mx.storage().upload(imageFile);
 
-        // const { uri } = await mx.nfts().uploadMetadata({
-        //     name: 'SOL #RO',
-        //     symbol: 'SOL',
-        //     description: 'Solana - A New Architecture for a High Performance Blockchain',
-        //     seller_fee_basis_points: 500,
-        //     image: imageFile,
-        //     external_url: 'https://solana.com/',
-        //     collection: {
-        //         name: 'SOL',
-        //         family: 'SOL #RO',
-        //     },
-        //     attributes: [
-        //         {
-        //             trait_type: 'Author',
-        //             value: 'Anatoly Yakovenko',
-        //         },
-        //         { trait_type: 'Date', value: 'Nov 2020' },
-        //         { trait_type: 'DOI', value: '' },
-        //         {
-        //             trait_type: 'Abstract',
-        //             value: 'This paper proposes a new blockchain architecture based on Proof of History (PoH) - a proof for verifying order and passage of time between events. PoH is used to encode trustless passage of time into a ledger - an append only data structure. When used alongside a consensus algorithm such as Proof of Work (PoW) or Proof of Stake (PoS), PoH can reduce messaging overhead in a Byzantine Fault Tolerant replicated state machine, resulting inn sub-second finality times. This paper also proposes two algorithms that leverage the time keeping properties of the PoH ledger - a PoS algorithm that can recover from partitions of any size and an efficient streaming Proof of Replication (PoRep). The combination of PoRep and PoH provides a defense against forgery of the ledger with respect to time (ordering) and storage. The protocol is analyzed on a 1 gbps network, and this paper shows that throughput up to 710k transactions per second is possible with todays hardware.',
-        //         },
-        //         { trait_type: 'State', value: 'Reviewed' },
-        //         { trait_type: 'Access', value: 'Free' },
-        //     ],
-        //     properties: {
-        //         creators: [
-        //             {
-        //                 //@ts-ignore
-        //                 address: wallet?.publicKey.toString(),
-        //                 share: 100,
-        //             },
-        //         ],
-        //         files: [
-        //             {
-        //                 uri: imageFile,
-        //                 type: 'image/png',
-        //             },
-        //             {
-        //                 uri: pdf,
-        //                 type: 'application/pdf',
-        //             },
-        //             {
-        //                 uri: video,
-        //                 type: 'movie/mp4',
-        //             },
-        //             {
-        //                 uri: ppt,
-        //                 type: 'application/pdf',
-        //             },
-        //         ],
-        //     },
-        // });
+        const { uri } = await mx.nfts().uploadMetadata({
+            name: 'BAO #RO',
+            symbol: 'BAO',
+            description: 'BAO - A Lightweight Static Partitioning Hypervisor',
+            seller_fee_basis_points: 500,
+            image: 'https://arweave.net/6rrbLMO2pAwKHUuYBjCCPoMXSJDgmG--e4IT8tllvMk',
+            external_url: 'http://www.bao-project.org/',
+            collection: {
+                name: 'BAO',
+                family: 'BAO #RO',
+            },
+            attributes: [
+                {
+                    trait_type: 'Author',
+                    value: 'José Martins, Adriano Tavares, Marco Solieri, Marko Bertogna, Sandro Pinto',
+                },
+                {
+                    trait_type: 'Date',
+                    value: 'Jan 2020',
+                },
+                {
+                    trait_type: 'DOI',
+                    value: '10.4230/OASIcs.NG-RES.2020.3',
+                },
+                {
+                    trait_type: 'Abstract',
+                    value: 'Given the increasingly complex and mixed-criticality nature of modern embedded systems, virtualiz-ation emerges as a natural solution to achieve strong spatial and temporal isolation. Widely used hypervisors such as KVM and Xen were not designed having embedded constraints and requirements in mind. The static partitioning architecture pioneered by Jailhouse seems to address embedded concerns. However, Jailhouse still depends on Linux to boot and manage its VMs. In this paper, we present the Bao hypervisor, a minimal, standalone and clean-slate implementation of the static partitioning architecture for Armv8 and RISC-V platforms. Preliminary results regarding size, boot, performance, and interrupt latency, show this approach incurs only minimal virtualization overhead. Bao will soon be publicly available, in hopes of engaging both industry and academia on improving Baos safety, security, and real-time guarantees.',
+                },
+                {
+                    trait_type: 'State',
+                    value: 'Reviewed',
+                },
+                {
+                    trait_type: 'Access',
+                    value: 'Premium',
+                },
+            ],
+            properties: {
+                creators: [
+                    {
+                        address: '8U34qHx55Bk71JwQ67XLqFaawSz9oHfAy5jCfLDdhvtP',
+                        share: 100,
+                    },
+                ],
+                files: [
+                    {
+                        uri: 'https://arweave.net/mL4lFAltoarGWdNYP19t76OsdLwp49O8eiLbjDZjcmM',
+                        type: 'image/png',
+                    },
+                    {
+                        uri: 'https://arweave.net/uyyPUzZyE6tGXz9o4rCHAjhpJQBNaTWvIetHeiwcdak',
+                        type: 'application/pdf',
+                    },
+                    {
+                        uri: 'https://arweave.net/HvEjoAzhukOehNLsJh1OcmL5FYYCFJn3RiHa-Xzhslw',
+                        type: 'movie/mp4',
+                    },
+                    {
+                        uri: 'https://arweave.net/upxeDYlMl0HMTDzjF6FIqqN8qUfbHVRlV8E3hdhoGlc',
+                        type: 'application/pptx',
+                    },
+                ],
+            },
+        });
 
-        // console.log(uri);
+        console.log(uri);
 
         const { nft } = await mx.nfts().create(
             {
-                name: 'SOL #RO',
-                uri: 'https://arweave.net/pWhUy0TlvhxwMCgFLlX_izv7Qr1v2RNQyLY7tQd9n_k',
+                name: 'BAO #RO',
+                uri: uri,
                 sellerFeeBasisPoints: 500, // Represents 5.00%.
             },
             { commitment: 'finalized' }
