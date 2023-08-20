@@ -9,7 +9,7 @@ export const loggedNavLinks = [
     { id: 'explore', title: 'Explore' },
     { id: 'subscriptions', title: 'Subscriptions' },
     { id: 'upload', title: 'Submit' },
-    // { id: 'backoffice', title: 'Back Office' },
+    { id: 'backoffice', title: 'Back Office' },
 ];
 
 export const slogans = [

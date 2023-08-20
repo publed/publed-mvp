@@ -29,6 +29,8 @@ const Research = () => {
         fetchROData();
     }, []);
 
+    console.log('RO: ', researchObject?.properties?.files);
+
     return (
         <div className="min-h-screen w-full py-20 bg-background-grey">
             <div className="container mx-auto mt-10">
