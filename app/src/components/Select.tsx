@@ -9,7 +9,7 @@ interface SelectI {
 const Select = ({ options, getOptionLabel, changeHandler, selected, placeholder }: SelectI) => {
     return (
         <select
-            className="w-full bg-white border border-gray-300 px-[10px] py-[14px] rounded-lg text-gray-700 form-ring disabled:opacity-50"
+            className="w-full font-sans bg-white border border-gray-300 py-[10px] px-[14px] rounded-lg text-gray-700 form-ring disabled:opacity-50"
             name="type"
             defaultValue={selected}
             onChange={(evt) => changeHandler(options[Number(evt.target.value)])}
