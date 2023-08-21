@@ -42,10 +42,6 @@ const SignUp = () => {
         console.log('avatar: ', avatar);
         if (data.get('orcidNumber') === null) await createUser(data.get('name'), avatar, '0');
         else await createUser(data.get('name'), avatar, data.get('orcidNumber'));
-
-        // setTimeout(() => {
-        //     setUpdatedUser(!updatedUser);
-        // }, 10000);
     };
 
     return (
