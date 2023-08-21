@@ -74,7 +74,7 @@ const Navbar = () => {
                         {!initialized ? (
                             <>
                                 <Link to="/signup">
-                                    <button className=" rounded-full px-5 py-2 border text-sm text-default-0 font-medium transition ease-in-out delay-150 bg-dark-blue-60 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
+                                    <button className=" rounded-full px-5 py-2 border text-sm text-dark-blue-60 font-medium transition ease-in-out delay-150 bg-light-blue-20 hover:-translate-y-1 hover:scale-110 hover:bg-blue-3 duration-300">
                                         Sign Up
                                     </button>
                                 </Link>
@@ -86,7 +86,7 @@ const Navbar = () => {
                             </>
                         ) : (
                             <circle className="h-12 w-12 rounded-full flex items-center">
-                                <Link to="/">
+                                <Link to="/profile">
                                     <Avatar
                                         name={wallet.publicKey?.toString()}
                                         variant="pixel"

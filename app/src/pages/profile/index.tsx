@@ -7,6 +7,9 @@ import Code from '../../icons/Code';
 import React, { useState } from 'react';
 import Button from '../../components/Button';
 import ResearchCard from '../../components/ResearchCard';
+import Avatar from 'boring-avatars';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { LinkedinLogo, TwitterLogo } from '../../assets';
 
 const entries = [
     {
@@ -24,6 +27,7 @@ const entries = [
 ];
 
 const Research = () => {
+    const wallet = useWallet();
     return (
         <div className="min-h-screen w-full py-20 bg-background-grey">
             <div className="container mx-auto mt-20">
@@ -31,7 +35,14 @@ const Research = () => {
                     <div className="grid grid-cols-8 items-start gap-10">
                         <div className="col-span-3 bg-white p-7 rounded-lg shadow">
                             <div className="flex gap-6 mb-8">
-                                <div className="h-28 w-28 bg-default-40 rounded-full" />
+                                <div className="h-28 w-28 rounded-full flex justify-center items-center">
+                                    <Avatar
+                                        name={wallet.publicKey?.toString()}
+                                        variant="pixel"
+                                        colors={['#26a653', '#2a1d8f', '#79646a', '#e9c46a', '#e76f51', '#264653']}
+                                        size={112}
+                                    />
+                                </div>
                                 <div className="flex-grow flex flex-col gap-3">
                                     <div className="flex items-baseline gap-1">
                                         <h2 className="text-2xl font-semibold text-dark-blue-80">Sandro E. Pinto</h2>
@@ -42,9 +53,8 @@ const Research = () => {
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Button variant="small">Follow</Button>
-                                        <div className="h-6 w-6 bg-default-60 rounded-full" />
-                                        <div className="h-6 w-6 bg-default-60 rounded-full" />
-                                        <div className="h-6 w-6 bg-default-60 rounded-full" />
+                                        <TwitterLogo className="fill-default-60" />
+                                        <LinkedinLogo className="fill-default-60" />
                                     </div>
                                 </div>
                             </div>
@@ -66,14 +76,14 @@ const Research = () => {
                                 generation of secure virtualization solutions for resource-constrained embedded devices.
                             </p>
                             <div className="flex flex-wrap mb-6 gap-2">
-                                <Tag>*keywords*</Tag>
-                                <Tag>Blockchain</Tag>
+                                <Tag>TrustZone</Tag>
+                                <Tag>Embedded Virtualization</Tag>
                                 <Tag>Security</Tag>
-                                <Tag>Smart Contracts</Tag>
+                                <Tag>RTOS</Tag>
                             </div>
                             <div className="flex gap-1 text-sm text-default-100">
                                 <p className="font-bold">ORC ID</p>
-                                <p className="">0000-0000-0000-0000</p>
+                                <p className="">0000-0003-4580-7484</p>
                             </div>
                         </div>
                         <div className="col-span-5">
@@ -91,55 +101,43 @@ const Research = () => {
                                             <div className="flex flex-col gap-3">
                                                 <div className="bg-white w-full rounded-lg shadow p-5">
                                                     <h2 className="text-lg text-dark-blue-80 font-medium mb-4">
-                                                        CertiK: Building Fully Trustworthy Smart Contracts and
-                                                        Blockchain Ecosystems{' '}
+                                                        BAO - A Lightweight Static Partitioning Hypervisor{' '}
                                                     </h2>
                                                     <p className="text-sm text-dark-blue-100 mb-2 text-ellipsis">
-                                                        Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization ...
+                                                        Given the increasingly complex and mixed-criticality nature of
+                                                        modern embedded systems, virtualiz-ation emerges as a natural
+                                                        solution to achieve strong spatial and temporal isolation.
+                                                        Widely used hypervisors such as KVM and Xen were not designed
+                                                        having embedded constraints and requirements in mind. The static
+                                                        partitioning architecture pioneered by Jailhouse seems to
+                                                        address embedded concerns. However, Jailhouse still depends on
+                                                        Linux to boot and manage its VMs. In this paper, we present the
+                                                        Bao hypervisor, a minimal, standalone and clean-slate
+                                                        implementation of the static partitioning architecture for Armv8
+                                                        and RISC-V platforms. Preliminary results regarding size, boot,
+                                                        performance, and interrupt latency, show this approach incurs
+                                                        only minimal virtualization overhead. Bao will soon be publicly
+                                                        available, in hopes of engaging both industry and academia on
+                                                        improving Baos safety, security, and real-time guarantees.
                                                     </p>
                                                     <p className="text-sm font-medium">Read More</p>
                                                 </div>
                                                 <div className="bg-white w-full rounded-lg shadow p-5">
                                                     <h2 className="text-lg text-dark-blue-80 font-medium mb-4">
-                                                        CertiK: Building Fully Trustworthy Smart Contracts and
-                                                        Blockchain Ecosystems{' '}
+                                                        Cartesi - Security Analysis{' '}
                                                     </h2>
                                                     <p className="text-sm text-dark-blue-100 mb-2">
-                                                        Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization ...
-                                                    </p>
-                                                    <p className="text-sm font-medium">Read More</p>
-                                                </div>
-                                                <div className="bg-white w-full rounded-lg shadow p-5">
-                                                    <h2 className="text-lg text-dark-blue-80 font-medium mb-4">
-                                                        CertiK: Building Fully Trustworthy Smart Contracts and
-                                                        Blockchain Ecosystems{' '}
-                                                    </h2>
-                                                    <p className="text-sm text-dark-blue-100 mb-2">
-                                                        Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization ...
+                                                        Web3 technologies have attracted huge attention from both
+                                                        academia and industry. Blockchain is one of the most disruptive
+                                                        technologies used in Web3 and has been widely adopted. This
+                                                        technology has advantages in terms of security, immutability,
+                                                        and data privacy, thus making it fitted for a variety of use
+                                                        cases. The concept of blockchain was initially introduced by the
+                                                        Bitcoin cryptocurrency, but nowadays, it is used in wide
+                                                        spectrum of domains and applications. Following the rise of
+                                                        Bitcoin, another major milestone in technology was the emergence
+                                                        of Ethereum, which unlocked numberless opportunities in the
+                                                        field...
                                                     </p>
                                                     <p className="text-sm font-medium">Read More</p>
                                                 </div>
@@ -149,19 +147,23 @@ const Research = () => {
                                             <div className="flex flex-col gap-3">
                                                 <div className="bg-white w-full rounded-lg shadow p-5">
                                                     <h2 className="text-lg text-dark-blue-80 font-medium mb-4">
-                                                        CertiK: Building Fully Trustworthy Smart Contracts and
-                                                        Blockchain Ecosystems{' '}
+                                                        MCXplore: An automated framework for validating memory
+                                                        controller designs{' '}
                                                     </h2>
                                                     <p className="text-sm text-dark-blue-100 mb-2 text-ellipsis">
-                                                        Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization ...
+                                                        This work presents an automated framework for the validation of
+                                                        dynamic random access memory controllers (DRAM MCs) called
+                                                        MCXplore. In developing this framework, we construct formal
+                                                        models for memory requests interrelation and DRAM command
+                                                        interaction. The framework enables validation engineers to
+                                                        define their test plans precisely as temporal logic
+                                                        specifications. We use the NuSMV model-checker to generate
+                                                        counter-examples that serve as test templates; hence, MCXplore
+                                                        uses these test templates to generate memory tests to validate
+                                                        the correctness properties of the memory controller. We show the
+                                                        effectiveness of MCXplore by validating various state-of-the-art
+                                                        MC features as well as hard-to-detect timing violations that
+                                                        often occur. ...
                                                     </p>
                                                     <p className="text-sm font-medium">Read More</p>
                                                 </div>

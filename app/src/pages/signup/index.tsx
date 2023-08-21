@@ -60,9 +60,6 @@ const SignUp = () => {
                             Learn More
                         </a>
                     </p>
-                    {/* <Button variant="small" onClick={() => setOpen(true)}>
-                        Connect Wallet
-                    </Button> */}
                     <WalletMultiButton className="wallet-custom priority" />
                     <Modal showModal={open} setShowModal={setOpen}>
                         <div className="text-default-100">
