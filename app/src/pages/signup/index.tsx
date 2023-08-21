@@ -40,8 +40,8 @@ const SignUp = () => {
 
         const avatar: string = await getAvatarUrl(wallet?.publicKey?.toString() as string);
         console.log('avatar: ', avatar);
-
-        await createUser(data.get('name'), avatar, data.get('orcidNumber'));
+        if (data.get('orcidNumber') === null) await createUser(data.get('name'), avatar, '0');
+        else await createUser(data.get('name'), avatar, data.get('orcidNumber'));
 
         // setTimeout(() => {
         //     setUpdatedUser(!updatedUser);
