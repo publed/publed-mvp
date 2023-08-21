@@ -6,6 +6,8 @@ import Modal from '../../components/Modal';
 import WalletRadio from '../../components/WalletRadio';
 import Select from '../../components/Select';
 import Input from '../../components/Input';
+import { getAvatarUrl } from '../home';
+import { useWallet } from '@solana/wallet-adapter-react';
 
 const SignUp = () => {
     //@ts-ignore
@@ -13,6 +15,7 @@ const SignUp = () => {
     const [orcid, setOrcid] = useState(false);
     const [fname, setFname] = useState('');
     const [open, setOpen] = React.useState(false);
+    const wallet = useWallet();
 
     const [selectedRole, setSelectedRole] = useState('');
     const roleOptions = [
@@ -32,7 +35,10 @@ const SignUp = () => {
 
         console.log('Creating User:');
 
-        await createUser(data.get('name'), 'avatar', data.get('orcidNumber'));
+        const avatar: string = await getAvatarUrl(wallet?.publicKey?.toString() as string);
+        console.log('avatar: ', avatar);
+
+        await createUser(data.get('name'), avatar, data.get('orcidNumber'));
 
         // setTimeout(() => {
         //     setUpdatedUser(!updatedUser);

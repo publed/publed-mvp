@@ -2,7 +2,7 @@ import { createContext, ReactNode } from 'react';
 import { Metaplex } from '@metaplex-foundation/js';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
 
-interface MetaplexContextType {
+export interface MetaplexContextType {
     connection: Connection;
     mx: Metaplex;
 }

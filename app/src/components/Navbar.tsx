@@ -3,6 +3,8 @@ import { loggedNavLinks, navLinks } from '../constants';
 import { close, hlogo, menu, search, testlogo } from '../assets';
 import { Link, useNavigate } from 'react-router-dom';
 import { PubledContext } from '../context/PubledContext';
+import Avatar from 'boring-avatars';
+import { useWallet } from '@solana/wallet-adapter-react';
 
 const Navbar = () => {
     //@ts-ignore
@@ -10,6 +12,7 @@ const Navbar = () => {
     const [toggle, setToggle] = useState<boolean>(false);
     const [active, setActive] = useState<string>('Home');
     const navigate = useNavigate();
+    const wallet = useWallet();
     return (
         <div>
             <nav className="w-full flex flex-col py-4 items-center">
@@ -22,17 +25,19 @@ const Navbar = () => {
                             className="md:w-[150px] md:h-[40px] xs:w-[110px] xs:h-[30px] sm:h-[36px]"
                         />
                     </a>
-                    <form className="flex items-center bg-white px-4 py-2 rounded-[100px] w-[480px] justify-center">
-                        <input
-                            name="search"
-                            type="search"
-                            className="text-default-40 text-base bg-white border-white w-full"
-                            placeholder="Search"
-                        ></input>
-                        <button onClick={() => navigate('/explore')}>
-                            <img src={search} alt="search" className="w-8" />
-                        </button>
-                    </form>
+                    {initialized ? (
+                        <form className="flex items-center bg-white px-4 py-2 rounded-[100px] w-[480px] justify-center">
+                            <input
+                                name="search"
+                                type="search"
+                                className="text-default-40 text-base bg-white border-white w-full"
+                                placeholder="Search"
+                            ></input>
+                            <button onClick={() => navigate('/explore')}>
+                                <img src={search} alt="search" className="w-8" />
+                            </button>
+                        </form>
+                    ) : null}
                     <div className="flex flex-row space-x-2">
                         <ul className="list-none md:flex hidden justify-end items-center text-center">
                             {!initialized
@@ -79,7 +84,17 @@ const Navbar = () => {
                                     </button>
                                 </Link>
                             </>
-                        ) : null}
+                        ) : (
+                            <circle className="h-12 w-12 rounded-full flex items-center">
+                                <Link to="/">
+                                    <Avatar
+                                        name={wallet.publicKey?.toString()}
+                                        variant="pixel"
+                                        colors={['#26a653', '#2a1d8f', '#79646a', '#e9c46a', '#e76f51', '#264653']}
+                                    />
+                                </Link>
+                            </circle>
+                        )}
 
                         <div className="md:hidden flex justify-end items-center">
                             <img

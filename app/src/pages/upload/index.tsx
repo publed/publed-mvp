@@ -9,24 +9,28 @@ import Code from '../../icons/Code';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Textarea from '../../components/Textarea';
-import { MetaplexContext } from '../../context/MetaplexContext';
+import { MetaplexContext, MetaplexContextType } from '../../context/MetaplexContext';
+import { WalletContextState, useWallet } from '@solana/wallet-adapter-react';
+import { bundlrStorage, toMetaplexFileFromBrowser, walletAdapterIdentity } from '@metaplex-foundation/js';
 
 const NFTmint = async (
     title: string,
     authorName: string,
+    image: string,
     date: string,
     DOI: string,
     abstract: string,
     state: string,
     access: string,
-    pdf: string,
-    image: string,
-    video: string
+    docs: string,
+    video: string,
+    slides: string,
+    mx: MetaplexContextType,
+    wallet: WalletContextState
 ) => {
-    const { mx } = useContext(MetaplexContext);
-
+    //@ts-ignore
     const { uri } = await mx.nfts().uploadMetadata({
-        name: 'BAO #RO',
+        name: title,
         symbol: 'BAO',
         description: 'BAO - A Lightweight Static Partitioning Hypervisor',
         seller_fee_basis_points: 500,
@@ -60,16 +64,24 @@ const NFTmint = async (
             ],
             files: [
                 {
-                    uri: image,
+                    //@ts-ignore
+                    uri: '',
                     type: 'image/png',
                 },
                 {
-                    uri: pdf,
+                    //@ts-ignore
+                    uri: docs ? await toMetaplexFileFromBrowser(docs) : '',
                     type: 'application/pdf',
                 },
                 {
-                    uri: video,
+                    //@ts-ignore
+                    uri: video ? await toMetaplexFileFromBrowser(video) : '',
                     type: 'movie/mp4',
+                },
+                {
+                    //@ts-ignore
+                    uri: slides ? await toMetaplexFileFromBrowser(slides) : '',
+                    type: 'application/pptx',
                 },
             ],
         },
@@ -87,6 +99,7 @@ const emptyForm = {
     abstract: '',
     state: '',
     access: '',
+    image: '',
     docs: '',
     data: '',
     video: '',
@@ -95,6 +108,11 @@ const emptyForm = {
 };
 
 const Upload = () => {
+    const { mx } = useContext(MetaplexContext);
+    const wallet = useWallet();
+
+    mx.use(walletAdapterIdentity(wallet)).use(bundlrStorage({ address: 'https://devnet.bundlr.network' }));
+
     const [form, setForm] = useState(emptyForm);
 
     const handleInputChange = (event: any) => {
@@ -106,10 +124,11 @@ const Upload = () => {
         setForm({ ...form, [name]: files[0] });
     };
 
-    const handleMint = () => {
-        const { title, author, month, year, doi, abstract, state, access, docs, data, video, slides, code } = form;
+    const handleMint = async () => {
+        const { title, author, image, month, year, doi, abstract, state, access, docs, video, slides, code } = form;
         const date = `${month} ${year}`;
-        NFTmint(title, author, date, doi, abstract, state, access, docs, slides, video);
+        //@ts-ignore
+        await NFTmint(title, author, image, date, doi, abstract, state, access, docs, video, slides, mx, wallet);
     };
 
     useEffect(() => {
@@ -236,24 +255,29 @@ const Upload = () => {
                             <Panel id="code">
                                 <FileUpload name="code" onChange={handleFileChange} />
                             </Panel>
-                            {/* <div className="">
+                            <div className="">
                                 {form?.docs && (
+                                    // @ts-ignore
                                     <FileEntry icon={<Document className="w-8 h-8" />} name={form.docs?.name} />
                                 )}
+                                {/*  @ts-ignore */}
                                 {form?.data && <FileEntry icon={<Data className="w-8 h-8" />} name={form.data?.name} />}
                                 {form?.video && (
+                                    // @ts-ignore
                                     <FileEntry icon={<Video className="w-8 h-8" />} name={form.video?.name} />
                                 )}
                                 {form?.slides && (
+                                    // @ts-ignore
                                     <FileEntry icon={<Slides className="w-8 h-8" />} name={form.slides?.name} />
                                 )}
+                                {/*  @ts-ignore */}
                                 {form?.code && <FileEntry icon={<Code className="w-8 h-8" />} name={form.code?.name} />}
-                            </div> */}
+                            </div>
                         </div>
                     )}
                 />
                 <div className="flex gap-3 justify-between">
-                    <Button variant="light" onClick={() => {}}>
+                    <Button variant="light" onClick={handleMint}>
                         Mint NFT
                     </Button>
                     <Button variant="blue" onClick={() => {}}>

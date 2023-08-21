@@ -14,6 +14,11 @@ import {
     walletAdapterIdentity,
 } from '@metaplex-foundation/js';
 import base58, * as bs58 from 'bs58';
+import Avatar from 'boring-avatars';
+
+export const getAvatarUrl = (key: string) => {
+    return `https://source.boringavatars.com/pixel/120/${key}?colors=26a653,2a1d8f,79646a,e9c46a,e76f51,264653`;
+};
 
 const Home = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -25,10 +30,6 @@ const Home = () => {
     const wallet = useWallet();
     const metaplexConnection = new Connection(clusterApiUrl('devnet'));
 
-    const walletP = Keypair.fromSecretKey(
-        //8U34qHx55Bk71JwQ67XLqFaawSz9oHfAy5jCfLDdhvtP
-        base58.decode('3eT2VjzqqgEkjqEiNvSQb941CMc5sDgDYANzaHLeJB9xcuuVTG3TRnxdpEJgTBctD1Gt7BE1ekBZRpQH9rqeoTVR')
-    );
     const mx = Metaplex.make(metaplexConnection)
         .use(walletAdapterIdentity(wallet))
         .use(bundlrStorage({ address: 'https://devnet.bundlr.network' }));
@@ -49,6 +50,7 @@ const Home = () => {
             console.log(lamportBalance);
         }
     };
+    if (wallet.publicKey) console.log('avatar: ', getAvatarUrl(wallet.publicKey?.toString()));
 
     useEffect(() => {
         getBalance();
@@ -84,20 +86,20 @@ const Home = () => {
         // const uri = await mx.storage().upload(imageFile);
 
         const { uri } = await mx.nfts().uploadMetadata({
-            name: 'SOL #RO',
-            symbol: 'SOL',
-            description: 'Solana - A New Architecture for a High Performance Blockchain',
+            name: 'MCX #RO',
+            symbol: 'MCX',
+            description: 'MCXplore: An automated framework for validating memory controller designs',
             seller_fee_basis_points: 500,
-            image: 'https://arweave.net/DIYQbBlFluMAtDlupqjJTMl3HFmw1SkLMVAuxH5I-Z0',
-            external_url: 'https://solana.com/',
-            collection: { name: 'SOL', family: 'SOL #RO' },
+            image: imageFile,
+            external_url: 'https://gitlab.com/FanosLab/mcxplore',
+            collection: { name: 'MCX', family: 'MCX #RO' },
             attributes: [
-                { trait_type: 'Author', value: 'Anatoly Yakovenko' },
-                { trait_type: 'Date', value: 'Nov 2020' },
-                { trait_type: 'DOI', value: '' },
+                { trait_type: 'Author', value: 'Mohamed Hassan, Hiren Patel' },
+                { trait_type: 'Date', value: 'Mar 2016' },
+                { trait_type: 'DOI', value: '978-3-9815370-7-9/DATE16/c2016EDAA' },
                 {
                     trait_type: 'Abstract',
-                    value: 'This paper proposes a new blockchain architecture based on Proof of History (PoH) - a proof for verifying order and passage of time between events. PoH is used to encode trustless passage of time into a ledger - an append only data structure. When used alongside a consensus algorithm such as Proof of Work (PoW) or Proof of Stake (PoS), PoH can reduce messaging overhead in a Byzantine Fault Tolerant replicated state machine, resulting inn sub-second finality times. This paper also proposes two algorithms that leverage the time keeping properties of the PoH ledger - a PoS algorithm that can recover from partitions of any size and an efficient streaming Proof of Replication (PoRep). The combination of PoRep and PoH provides a defense against forgery of the ledger with respect to time (ordering) and storage. The protocol is analyzed on a 1 gbps network, and this paper shows that throughput up to 710k transactions per second is possible with todays hardware.',
+                    value: 'This work presents an automated framework for the validation of dynamic random access memory controllers (DRAM MCs) called MCXplore. In developing this framework, we construct formal models for memory requests interrelation and DRAM command interaction. The framework enables validation engineers to define their test plans precisely as temporal logic specifications. We use the NuSMV model-checker to generate counter-examples that serve as test templates; hence, MCXplore uses these test templates to generate memory tests to validate the correctness properties of the memory controller. We show the effectiveness of MCXplore by validating various state-of-the-art MC features as well as hard-to-detect timing violations that often occur. We also provide a set of predefined test plans, and regression tests that validate essential properties of modern DRAM MCs. We release MCXplore as an open-source framework to allow validation engineers and researchers to extend and use.',
                 },
                 { trait_type: 'State', value: 'Reviewed' },
                 { trait_type: 'Access', value: 'Free' },
@@ -105,25 +107,25 @@ const Home = () => {
             properties: {
                 creators: [
                     {
-                        address: 'BPuouX74vXb2N36CXtELnzDz441od9HYaBextRXajUeb',
+                        address: '8U34qHx55Bk71JwQ67XLqFaawSz9oHfAy5jCfLDdhvtP',
                         share: 100,
                     },
                 ],
                 files: [
                     {
-                        uri: 'https://arweave.net/dnD5Bvlg7mC405WdmG3RrjogW70ABpfmEoKujFu0ezg',
+                        uri: imageFile,
                         type: 'image/png',
                     },
                     {
-                        uri: 'https://arweave.net/m9jQsT7CU-CP56GCeLZRoXlZ9M8VVyRMKRz65z8Uyjk',
+                        uri: pdf,
                         type: 'application/pdf',
                     },
+                    // {
+                    //     uri: video,
+                    //     type: 'movie/mp4',
+                    // },
                     {
-                        uri: 'https://arweave.net/DzCSwTkBCIeercHW_1BNsCPJU81uG6EiK0cN5tpoZd0',
-                        type: 'movie/mp4',
-                    },
-                    {
-                        uri: 'https://arweave.net/NL0_RX0xOLlCXw9N_P_3BaRC5oObTpl8S9vikiJ6t1w',
+                        uri: ppt,
                         type: 'application/pptx',
                     },
                 ],
