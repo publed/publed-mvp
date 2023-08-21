@@ -2,12 +2,16 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import React, { useContext, useEffect } from 'react';
 import WalletRadio from '../../components/WalletRadio';
 import { PubledContext } from '../../context/PubledContext';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
     //@ts-ignore
     const { initialized } = useContext(PubledContext);
+    const navigate = useNavigate();
 
-    useEffect(() => {}, [initialized]);
+    useEffect(() => {
+        if (initialized) navigate('/explore');
+    }, [initialized]);
 
     return (
         <div className="min-h-screen w-full flex justify-center items-center pt-20 bg-background-grey">

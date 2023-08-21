@@ -158,10 +158,12 @@ const Upload = () => {
     return (
         <div className="min-h-screen w-full py-20 bg-background-grey">
             <div className="w-[400px] mx-auto mt-10">
-                <h1 className="text-default-100 text-4xl font-medium mb-12">You can upload your research object!</h1>
+                <h1 className="text-default-100 text-4xl font-medium mb-12 text-center">
+                    Upload here your Research Object!
+                </h1>
                 <h2 className="text-default-70 text-2xl font-semibold mb-6">Research Object Info</h2>
                 <div className="grid grid-cols-1 grid-flow-row gap-5 mb-12">
-                    <InputGroup label={'Research Object Name'}>
+                    <InputGroup label={'Name'}>
                         <Input
                             type="text"
                             name="title"
@@ -169,7 +171,7 @@ const Upload = () => {
                             changeHandler={handleInputChange}
                         />
                     </InputGroup>
-                    <InputGroup label={'Author Name'}>
+                    <InputGroup label={'Author Name(s)'}>
                         <Input
                             type="text"
                             name="author"

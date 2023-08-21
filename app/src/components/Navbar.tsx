@@ -88,16 +88,16 @@ const Navbar = () => {
                             </>
                         ) : (
                             <>
-                                <div className="font-notosans font-light px-3 py-1 text-default-0 flex items-center gap-2 group">
-                                    <p className="hidden group-hover:block">100</p>
+                                <div className="font-notosans font-medium px-3 py-1 text-default-0 flex items-center gap-2 group">
+                                    <p className="hidden group-hover:block">25</p>
                                     <SolanaLogo className="h-4 w-4" />
                                 </div>
-                                <div className="font-notosans font-light px-3 py-1 text-default-0 flex items-center gap-2 group">
+                                <div className="font-notosans font-medium px-3 py-1 text-default-0 flex items-center gap-2 group">
                                     <p className="hidden group-hover:block">100</p>
                                     <PubledLogo className="h-5 w-5" />
                                 </div>
                                 <circle className="h-12 w-12 rounded-full flex items-center">
-                                    <Link to="/">
+                                    <Link to="/profile">
                                         <Avatar
                                             name={wallet.publicKey?.toString()}
                                             variant="pixel"

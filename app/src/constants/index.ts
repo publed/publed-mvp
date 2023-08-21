@@ -1,13 +1,13 @@
 // Static Text
 export const navLinks = [
-    { id: 'home', title: 'Home' },
+    // { id: 'home', title: 'Home' },
     { id: 'about', title: 'About' },
 ];
 export const loggedNavLinks = [
     // { id: 'home', title: 'Home' },
     { id: 'explore', title: 'Explore' },
     { id: 'upload', title: 'Submit' },
-    { id: 'subscriptions', title: 'Subscriptions' },
+    { id: 'subscription', title: 'Subscriptions' },
     // { id: 'about', title: 'About' },
     // { id: 'backoffice', title: 'Back Office' },
 ];
