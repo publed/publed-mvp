@@ -6,8 +6,11 @@ import Modal from '../../components/Modal';
 import WalletRadio from '../../components/WalletRadio';
 import Select from '../../components/Select';
 import Input from '../../components/Input';
-import { getAvatarUrl } from '../home';
 import { useWallet } from '@solana/wallet-adapter-react';
+
+export const getAvatarUrl = (key: string) => {
+    return `https://source.boringavatars.com/pixel/120/${key}?colors=26a653,2a1d8f,79646a,e9c46a,e76f51,264653`;
+};
 
 const SignUp = () => {
     //@ts-ignore
@@ -131,6 +134,12 @@ const SignUp = () => {
                         <Button variant="blue">Create Profile</Button>
                     </div>
                 </form>
+                <div className="flex flex-row gap-1">
+                    Already have an account?{'  '}
+                    <a href="/signin" className="text-dark-blue-60 font-medium">
+                        Sign In
+                    </a>
+                </div>
             </div>
         </div>
     );

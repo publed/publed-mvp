@@ -26,20 +26,6 @@ const SignIn = () => {
                     </p>
                     <h2 className="text-xl leading-normal font-medium mb-5">Connect your wallet</h2>
                 </div>
-                {/* <div className="flex flex-col space-y-3">
-                    <WalletRadio
-                        icon={<div className="h-10 w-10 bg-purple-500 rounded-full" />}
-                        label="Phantom"
-                        id="phantom"
-                        name="wallet"
-                    />
-                    <WalletRadio
-                        icon={<div className="h-10 w-10 bg-red-500 rounded-full" />}
-                        label="Backpack"
-                        id="backpack"
-                        name="wallet"
-                    />
-                </div> */}
                 <WalletMultiButton className="wallet-custom priority" />
             </div>
         </div>
