@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { PubledContext } from '../context/PubledContext';
 import Avatar from 'boring-avatars';
 import { useWallet } from '@solana/wallet-adapter-react';
+import SolanaLogo from '../icons/SolanaLogo';
+import PubledLogo from '../icons/PubledLogo';
 
 const Navbar = () => {
     //@ts-ignore
@@ -85,15 +87,25 @@ const Navbar = () => {
                                 </Link>
                             </>
                         ) : (
-                            <circle className="h-12 w-12 rounded-full flex items-center">
-                                <Link to="/profile">
-                                    <Avatar
-                                        name={wallet.publicKey?.toString()}
-                                        variant="pixel"
-                                        colors={['#26a653', '#2a1d8f', '#79646a', '#e9c46a', '#e76f51', '#264653']}
-                                    />
-                                </Link>
-                            </circle>
+                            <>
+                                <div className="font-notosans font-light px-3 py-1 text-default-0 flex items-center gap-2 group">
+                                    <p className="hidden group-hover:block">100</p>
+                                    <SolanaLogo className="h-4 w-4" />
+                                </div>
+                                <div className="font-notosans font-light px-3 py-1 text-default-0 flex items-center gap-2 group">
+                                    <p className="hidden group-hover:block">100</p>
+                                    <PubledLogo className="h-5 w-5" />
+                                </div>
+                                <circle className="h-12 w-12 rounded-full flex items-center">
+                                    <Link to="/">
+                                        <Avatar
+                                            name={wallet.publicKey?.toString()}
+                                            variant="pixel"
+                                            colors={['#26a653', '#2a1d8f', '#79646a', '#e9c46a', '#e76f51', '#264653']}
+                                        />
+                                    </Link>
+                                </circle>
+                            </>
                         )}
 
                         <div className="md:hidden flex justify-end items-center">
