@@ -167,42 +167,6 @@ const Research = () => {
                                                     </p>
                                                     <p className="text-sm font-medium">Read More</p>
                                                 </div>
-                                                <div className="bg-white w-full rounded-lg shadow p-5">
-                                                    <h2 className="text-lg text-dark-blue-80 font-medium mb-4">
-                                                        CertiK: Building Fully Trustworthy Smart Contracts and
-                                                        Blockchain Ecosystems{' '}
-                                                    </h2>
-                                                    <p className="text-sm text-dark-blue-100 mb-2">
-                                                        Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization ...
-                                                    </p>
-                                                    <p className="text-sm font-medium">Read More</p>
-                                                </div>
-                                                <div className="bg-white w-full rounded-lg shadow p-5">
-                                                    <h2 className="text-lg text-dark-blue-80 font-medium mb-4">
-                                                        CertiK: Building Fully Trustworthy Smart Contracts and
-                                                        Blockchain Ecosystems{' '}
-                                                    </h2>
-                                                    <p className="text-sm text-dark-blue-100 mb-2">
-                                                        Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization is pushing research
-                                                        towards Virtualization technology starts becoming more and more
-                                                        widespread in the embedded space. The penalties incurred by
-                                                        standard software-based virtualization ...
-                                                    </p>
-                                                    <p className="text-sm font-medium">Read More</p>
-                                                </div>
                                             </div>
                                         </Panel>
                                     </div>
