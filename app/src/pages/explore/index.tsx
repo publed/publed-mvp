@@ -71,29 +71,4 @@ const Pill = ({ label, isActive }: any) => {
     );
 };
 
-// three random paper entries
-const data = [
-    {
-        title: 'CertiK: Building Fully Trustworthy Smart Contracts and Blockchain Ecosystems',
-        author: 'CertiK',
-        tag: 'Free',
-        doi: 'N/A',
-        status: 'success',
-    },
-    {
-        title: 'CertiK: Building Fully Trustworthy Smart Contracts and Blockchain Ecosystems',
-        author: 'CertiK',
-        tag: 'Premium',
-        doi: 'N/A',
-        status: 'pending',
-    },
-    {
-        title: 'CertiK: Building Fully Trustworthy Smart Contracts and Blockchain Ecosystems',
-        author: 'CertiK',
-        tag: 'Free',
-        doi: 'N/A',
-        status: 'rejected',
-    },
-];
-
 export default Explore;

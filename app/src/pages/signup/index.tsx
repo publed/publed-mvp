@@ -54,7 +54,7 @@ const SignUp = () => {
                     {/* <Button variant="small" onClick={() => setOpen(true)}>
                         Connect Wallet
                     </Button> */}
-                    <WalletMultiButton className="px-5 py-2 rounded-full border border-dark-blue-60 bg-regular-blue-20 text-dark-blue-60 text-sm font-medium hover:bg-regular-blue-30 focus:bg-regular-blue-20 focus:ring-ring focus:ring-4" />
+                    <WalletMultiButton className="wallet-custom priority" />
                     <Modal showModal={open} setShowModal={setOpen}>
                         <div className="text-default-100">
                             <h2 className="text-xl text-center font-medium mb-7">Connect your wallet</h2>
