@@ -1,0 +1,17 @@
+.wallet-button {
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px; /* Equivalent to rounded-full in Tailwind */
+    border: 1px solid #01284e; /* Equivalent to border-dark-blue-60 in Tailwind */
+    background-color: #01284e; /* Equivalent to bg-regular-blue-20 in Tailwind */
+    font-size: 0.875rem; /* Equivalent to text-sm in Tailwind */
+    font-weight: 500; /* Equivalent to font-medium in Tailwind */
+}
+
+.wallet-button:hover {
+    background-color: rgb(191 229 238);
+}
+
+.wallet-button:focus {
+    background-color: rgb(234 243 253);
+    outline: none;
+}

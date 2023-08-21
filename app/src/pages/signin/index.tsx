@@ -27,7 +27,8 @@ const SignIn = () => {
                         name="wallet"
                     />
                 </div> */}
-                <WalletMultiButton className="px-5 py-2 rounded-full border border-dark-blue-60 bg-regular-blue-20 text-dark-blue-60 text-sm font-medium hover:bg-regular-blue-30 focus:bg-regular-blue-20 focus:ring-ring focus:ring-4" />
+                {/* <WalletMultiButton className="px-5 py-2 rounded-full border border-dark-blue-60 bg-regular-blue-20 text-dark-blue-60 text-sm font-medium hover:bg-regular-blue-30 focus:bg-regular-blue-20 focus:ring-ring focus:ring-4" /> */}
+                <WalletMultiButton className="bg-blue-950 hover:bg-red-600 focus:bg-green-600 text-dark-blue-60" />
             </div>
         </div>
     );

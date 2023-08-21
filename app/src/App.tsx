@@ -11,6 +11,7 @@ import PubledProvider from './context/PubledContext';
 import { MetaplexContext, MetaplexProvider } from './context/MetaplexContext';
 
 require('./App.css');
+require('./wallet.css');
 require('@solana/wallet-adapter-react-ui/styles.css');
 
 const baseAccount = Keypair.generate();

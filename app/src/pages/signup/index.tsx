@@ -55,12 +55,13 @@ const SignUp = () => {
                     <h2 className="text-default-100 text-xl mb-2">Connect your wallet</h2>
                     <p className="text-default-70 text-sm mb-5">
                         Choose a wallet to connect. If you don't have a wallet, you can select a provider and create
-                        one. <a className="text-dark-blue-60 decoration-dark-blue-60 underline">Learn More</a>
+                        one.{' '}
+                        <a className="text-dark-blue-60 decoration-dark-blue-60 underline" href="/#">
+                            Learn More
+                        </a>
                     </p>
-                    {/* <Button variant="small" onClick={() => setOpen(true)}>
-                        Connect Wallet
-                    </Button> */}
-                    <WalletMultiButton className="px-5 py-2 rounded-full border border-dark-blue-60 bg-regular-blue-20 text-dark-blue-60 text-sm font-medium hover:bg-regular-blue-30 focus:bg-regular-blue-20 focus:ring-ring focus:ring-4" />
+                    <WalletMultiButton className="wallet-button" />
+
                     <Modal showModal={open} setShowModal={setOpen}>
                         <div className="text-default-100">
                             <h2 className="text-xl text-center font-medium mb-7">Connect your wallet</h2>

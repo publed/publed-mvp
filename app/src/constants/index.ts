@@ -4,12 +4,12 @@ export const navLinks = [
     { id: 'about', title: 'About' },
 ];
 export const loggedNavLinks = [
-    { id: 'home', title: 'Home' },
-    { id: 'about', title: 'About' },
+    // { id: 'home', title: 'Home' },
     { id: 'explore', title: 'Explore' },
-    { id: 'subscriptions', title: 'Subscriptions' },
     { id: 'upload', title: 'Submit' },
-    { id: 'backoffice', title: 'Back Office' },
+    { id: 'subscriptions', title: 'Subscriptions' },
+    // { id: 'about', title: 'About' },
+    // { id: 'backoffice', title: 'Back Office' },
 ];
 
 export const slogans = [
