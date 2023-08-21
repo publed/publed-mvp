@@ -32,6 +32,16 @@ export const pages = [
         path: '/research/:address',
     },
     {
+        component: lazy(() => import('../pages/reviewAssignments')),
+        title: 'Assignment',
+        path: '/reviewAssignments',
+    },
+    {
+        component: lazy(() => import('../pages/profile')),
+        title: 'Profile',
+        path: '/profile',
+    },
+    {
         component: lazy(() => import('../pages/review')),
         title: 'Review',
         path: '/review',

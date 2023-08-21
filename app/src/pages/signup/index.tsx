@@ -60,8 +60,10 @@ const SignUp = () => {
                             Learn More
                         </a>
                     </p>
-                    <WalletMultiButton className="wallet-button" />
-
+                    {/* <Button variant="small" onClick={() => setOpen(true)}>
+                        Connect Wallet
+                    </Button> */}
+                    <WalletMultiButton className="wallet-custom priority" />
                     <Modal showModal={open} setShowModal={setOpen}>
                         <div className="text-default-100">
                             <h2 className="text-xl text-center font-medium mb-7">Connect your wallet</h2>
