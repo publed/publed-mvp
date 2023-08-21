@@ -37,6 +37,11 @@ export const pages = [
         path: '/reviewAssignments',
     },
     {
+        component: lazy(() => import('../pages/subscription')),
+        title: 'Subscription',
+        path: '/subscription',
+    },
+    {
         component: lazy(() => import('../pages/profile')),
         title: 'Profile',
         path: '/profile',
