@@ -1,7 +1,7 @@
 {
   "name": "publed",
   "version": "1.0.0",
-  "description": "",
+  "description": "democratizing scientific publishing",
   "main": "index.js",
   "scripts": {
     "app:start": "cd app && npm run start",
