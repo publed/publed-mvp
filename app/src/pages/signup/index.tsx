@@ -20,6 +20,7 @@ const SignUp = () => {
     const [open, setOpen] = React.useState(false);
     const wallet = useWallet();
 
+    const [selectedRole, setSelectedRole] = useState('');
     const roleOptions = [
         { value: 'university', label: 'University' },
         { value: 'reviewer', label: 'Reviewer' },
