@@ -2,6 +2,11 @@ import { lazy } from 'react';
 
 export const pages = [
     {
+        component: lazy(() => import('../pages/backoffice')),
+        title: 'Back Office',
+        path: '/backoffice',
+    },
+    {
         component: lazy(() => import('../pages/signin')),
         title: 'Sign-In',
         path: '/signin',
