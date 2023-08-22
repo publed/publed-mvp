@@ -223,7 +223,7 @@ const Upload = () => {
                     </InputGroup>
                     <InputGroup label={'State'} className="w-60">
                         <Select
-                            options={[]}
+                            options={['Accepted, Rejected, Minor Review, Major Review']}
                             placeholder="State"
                             selected="-1"
                             getOptionLabel={() => ''}
