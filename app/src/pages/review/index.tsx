@@ -61,6 +61,13 @@ const Upload = () => {
     const [weaknesses, setWeaknesses] = useState('');
     const [observations, setObservations] = useState('');
 
+    const stateOptions = [
+        { value: 'accepted', label: 'Accepted' },
+        { value: 'rejected', label: 'Rejected' },
+        { value: 'minorReview', label: 'Minor Review' },
+        { value: 'majorReview', label: 'Major Review' },
+    ];
+
     async function wait(ms: number): Promise<void> {
         return new Promise<void>((resolve) => {
             setTimeout(() => {
@@ -223,10 +230,10 @@ const Upload = () => {
                     </InputGroup>
                     <InputGroup label={'State'} className="w-60">
                         <Select
-                            options={['Accepted, Rejected, Minor Review, Major Review']}
+                            options={stateOptions}
                             placeholder="State"
                             selected="-1"
-                            getOptionLabel={() => ''}
+                            getOptionLabel={(option) => option.label}
                             changeHandler={() => {}}
                         />
                     </InputGroup>
